@@ -1,6 +1,18 @@
 # tamagotchi-springboot
-with SpringBoot, Thymeleaf, MySQL
 
+A Tamagotchi management application built with SpringBoot (JDK 21), Thymeleaf, and MySQL.
+
+## How To Run
+
+The project will be available in releases. You can download it from the GitHub releases page:
+
+[Releases](https://github.com/hanzyn09/tamagotchi-springboot/releases)
+
+## Introduction
+
+Detailed information about the project will be documented in the Wiki section. Please refer to the link below for more:
+
+[Wiki](https://github.com/hanzyn09/tamagotchi-springboot/wiki)
 
 # Database Schema for Tamagotchi
 
@@ -41,3 +53,5 @@ CREATE TABLE tamagotchis_F (
     FOREIGN KEY (tamagotchi_id) REFERENCES tamagotchis_M(tamagotchi_id) ON DELETE CASCADE  -- tamagotchis_M 테이블의 tamagotchi_id를 참조
 );
 ```
+
+Feel free to customize or add more sections based on your needs. Let me know if you'd like to add anything else!
