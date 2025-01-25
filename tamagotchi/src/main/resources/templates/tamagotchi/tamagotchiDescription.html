@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My-Tama-Friend</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            font-size: 40px;
+		    color: #6a4c9c; /* 보라색 계열 */
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #5e3a8c;
+            font-size: 28px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 1px; /* 간격 줄이기 */
+        }
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .feature-list li {
+            font-size: 18px;
+            color: #7ed957;
+            margin-bottom: 10px;
+        }
+        .feature-list li i {
+            margin-right: 10px;
+            color: #f39c12;
+        }
+        .btn-back {
+            background-color: #FFE942;
+            color: #6a4c9c;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-align: center;
+            display: inline-block;  /* inline-block으로 변경 */
+            margin: 0 auto;  /* 위쪽 여백을 0으로 줄임 */
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            border: none;
+        }
+        .btn-back:hover {
+            background-color: #D8C217;
+            color: white;
+        }
+
+        /* 버튼을 감싸는 부모 요소에 텍스트 중앙 정렬 추가 */
+        .button-wrapper {
+            text-align: center;  /* 버튼을 중앙 정렬 */
+            margin-top: 10px; /* 버튼과 컨테이너 간격을 최소화 */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>게임 설명</h1>
+        
+        <h2>게임 소개</h2>
+        <p>My-Tama-Friend는 가상의 다마고치를 키우는 시뮬레이션 게임입니다.</p>
+        <p>플레이어는 다마고치를 입양하여, 그들의 상태를 관리하고 행복하게 키워야 합니다.</p>
+        <p>게임을 통해 책임감을 기르고, 다마고치의 배고픔, 피로도, 행복도를 유지하며 그들과 소중한 시간을 보낼 수 있습니다.</p>
+        
+        <h2>게임 목표</h2>
+        <p>게임의 목표는 다마고치를 잘 돌보고, 그들의 행복을 유지하는 것입니다.</p>
+        <p>다마고치의 상태를 체크하고, 배고픔, 피로도, 행복도를 관리하여 최상의 상태를 유지해주세요.</p>
+        <p>다마고치를 행복하게 유지하는 것이 성공의 열쇠입니다!</p>
+        
+        <h2>주요 기능</h2>
+        <ul class="feature-list">
+            <li><i class="fas fa-paw"></i><strong>다양한 다마고치 캐릭터</strong> - 여러 종류의 다마고치를 입양하고 성장시키세요.</li>
+            <li><i class="fas fa-heart"></i><strong>행복도 관리</strong> - 다마고치의 행복도를 체크하고, 행복하게 만들어주세요.</li>
+            <li><i class="fas fa-utensils"></i><strong>배고픔 관리</strong> - 다마고치의 배고픔을 관리하고 음식을 주세요.</li>
+            <li><i class="fas fa-bed"></i><strong>피로도 관리</strong> - 다마고치가 피로하지 않도록 휴식을 취시켜 주세요.</li>
+            <li><i class="fas fa-calendar-day"></i><strong>하루 건너뛰기</strong> - 다마고치와 함께하는 시간을 하루 건너뛰기 기능으로 간편하게 관리하세요.</li>
+        </ul>
+        
+        <h2>게임 진행</h2>
+        <p>게임은 간단한 조작으로 이루어집니다.</p>
+        <p>다마고치를 선택하고, 각종 상태를 체크하며 필요한 조치를 취하세요.</p>
+        <p>타마고치의 상태가 좋아지면 보상도 있을 것입니다.</p>
+        <p>또한, 다마고치가 더 이상 관리되지 않으면 슬픔에 빠지게 되므로 주의하세요!</p>
+        
+    </div>
+
+    <!-- 버튼을 감싸는 wrapper 추가 -->
+    <div class="button-wrapper">
+        <a href="/index.html" class="btn-back">로비로 돌아가기</a>
+    </div>
+
+</body>
+</html>
