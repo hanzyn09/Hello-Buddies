@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Component      
 public class LoggerAspect {
-    @Pointcut("execution(* board..controller.*Controller.*(..)) || execution(* board..service.*ServiceImpl.*(..)) || execution(* board..mapper.*Mapper.*(..))")
+    @Pointcut("execution(* tamagotchi..controller.*Controller.*(..)) || execution(* tamagotchi..service.*ServiceImpl.*(..)) || execution(* tamagotchi..mapper.*Mapper.*(..))")
     private void loggerTarget() {
         
     }

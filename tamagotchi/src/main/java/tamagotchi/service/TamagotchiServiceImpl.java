@@ -32,6 +32,7 @@ public class TamagotchiServiceImpl implements TamagotchiService{
 		 // 1. 다마고치 등록
 		TamagotchiDto tamagotchiDto = new TamagotchiDto();
         tamagotchiDto.setName(name);
+        tamagotchiDto.setLevelNumber(1);
 		tamagotchiDto.setHunger(50);
 		tamagotchiDto.setFatigue(50);
 		tamagotchiDto.setHappiness(50);
@@ -60,26 +61,33 @@ public class TamagotchiServiceImpl implements TamagotchiService{
 	}
 
 	@Override
-	public void updatePlay(int tamagotchiId) {		
-		tamagochiMapper.updatePlay(tamagotchiId);  
+	public void updateState(int tamagotchiId, String action) {
+		TamagotchiDto tamagotchiDto = tamagochiMapper.selectTamagotchiDetail(tamagotchiId);
+		TamagotchiDto tamagotchiDtoTmp = new TamagotchiDto();
 		
-	}
-
-	@Override
-	public void updateHunger(int tamagotchiId) {
-		tamagochiMapper.updateHunger(tamagotchiId);  
+		tamagotchiDtoTmp.setTamagotchiId(tamagotchiId);
 		
-	}
-
-	@Override
-	public void updateSleep(int tamagotchiId) {
-		tamagochiMapper.updateSleep(tamagotchiId);  
+		switch(action) {
+			case"hunger":
+				tamagotchiDtoTmp.setHunger(tamagotchiDto.getHunger()- 5);
+				tamagotchiDtoTmp.setFatigue(tamagotchiDto.getFatigue());
+				tamagotchiDtoTmp.setHappiness(tamagotchiDto.getHappiness());
+				break;
+			case"sleep":
+				tamagotchiDtoTmp.setHunger(tamagotchiDto.getHunger());
+				tamagotchiDtoTmp.setFatigue(tamagotchiDto.getFatigue()- 5);
+				tamagotchiDtoTmp.setHappiness(tamagotchiDto.getHappiness());
+				break;
+			case"play":
+				tamagotchiDtoTmp.setHunger(tamagotchiDto.getHunger());
+				tamagotchiDtoTmp.setFatigue(tamagotchiDto.getFatigue()+ 5);
+				tamagotchiDtoTmp.setHappiness(tamagotchiDto.getHappiness()+ 5);
+				break;
+			default:
+	            throw new IllegalArgumentException("Invalid action: " + action);  // 잘못된 상태일 경우 예외 던짐
+		}
 		
-	}
-
-	@Override
-	public void updateDay() {
-		tamagochiMapper.updateDay();  
+		tamagochiMapper.updateState(tamagotchiDtoTmp);
 	}
 	
 	@Override
@@ -91,5 +99,11 @@ public class TamagotchiServiceImpl implements TamagotchiService{
 	public TamagotchiFileDto selectTamagotchiFileInfo(int imageId, int tamagotchiId) {
 		return tamagochiMapper.selectTamagotchiFileInfo(imageId, tamagotchiId);
 	}
+
+	@Override
+	public void updateDay() {
+		tamagochiMapper.updateDay();  
+	}
+
 
 }

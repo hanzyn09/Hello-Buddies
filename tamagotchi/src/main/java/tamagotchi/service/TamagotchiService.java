@@ -15,16 +15,12 @@ public interface TamagotchiService {
 
 	TamagotchiDto selectTamagotchiDetail(int tamagotchiId);
 	
-	void updatePlay(int tamagotchiId);
-
-	void updateHunger(int tamagotchiId);
-
-	void updateSleep(int tamagotchiId);
-
+	void updateState(int tamagotchiId, String action);
+	
 	void deleteTamagotchi(int tamagotchiId);
 
-	void updateDay();
-
 	TamagotchiFileDto selectTamagotchiFileInfo(int imageId, int tamagotchiId);
+	
+	void updateDay();
 
 }

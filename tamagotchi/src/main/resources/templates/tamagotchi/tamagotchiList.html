@@ -168,7 +168,7 @@
         }
 
         /* 뒤로가기 버튼 스타일 */
-        .btnBack {
+        .btn-back {
             display: inline-block;
             border-radius: 50px;
             background-color: #FFE942; /* 밝은 노란색 */
@@ -181,7 +181,7 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .btnBack:hover {
+        .btn-back:hover {
             background-color: #D8C217; /* 더 밝은 노란색 (호버 시) */
             color: white;
             text-decoration: none;  /* hover 시에도 밑줄 없애기 */
@@ -240,11 +240,12 @@
                 <tr>
                     <th onclick="sortTable(0, 'number')">탄생 순서</th>
                     <th onclick="sortTable(1, 'string')">이름</th>
-                    <th onclick="sortTable(2, 'number')">배고픔</th>
-                    <th onclick="sortTable(3, 'number')">피로도</th>
-                    <th onclick="sortTable(4, 'number')">행복도</th>
-                    <th title="(100 - 배고픔) * 0.2 + (100 - 피로도) * 0.3 + 행복도 * 0.5) / 3, 평균값:16.6" onclick="sortTable(5, 'string')">상태</th>
-                    <th>상세보기</th>
+                    <th title="레벨업을 시켜보세요!" onclick="sortTable(2, 'number')">레벨</th>
+                    <th title="배고픔" onclick="sortTable(3, 'number')"><i class="fas fa-utensils icon"></i></th>
+                    <th title="피로도" onclick="sortTable(4, 'number')"><i class="fas fa-bed icon"></i></th>
+                    <th title="행복도" onclick="sortTable(5, 'number')"><i class="fas fa-sun icon"></i></th>
+                    <th title="(100 - 배고픔) * 0.2 + (100 - 피로도) * 0.3 + 행복도 * 0.5) / 3, 평균값:16.6" onclick="sortTable(6, 'string')">종합 지수</th>
+                    <th title="상세보기를 통해 타마를 돌봐주세요!">상세보기</th>
                 </tr>
             </thead>
            <tbody id="tamagotchiTableBody">
@@ -252,16 +253,28 @@
 			    <tr th:each="tamagotchi, iterStat : ${tamagotchis}">
 			        <td th:text="${tamagotchi.tamagotchiId}"></td>
 			        <td th:text="${tamagotchi.name}"></td>
-			        <td th:text="${tamagotchi.hunger}"></td>
-			        <td th:text="${tamagotchi.fatigue}"></td>
-			        <td th:text="${tamagotchi.happiness}"></td>
+			        <td th:text="'Lv. ' + ${tamagotchi.levelNumber}"></td>
+			        
+			        <td title="배고픔은 0%가 최고의 상태입니다."
+				        th:text="${tamagotchi.hunger} + '%'" 
+						th:attr="style='color: ' + (${tamagotchi.hunger} >= 80 ? 'red' : 'black')">
+					</td>
+			        <td title="피로도는 0%가 최고의 상태입니다."
+				        th:text="${tamagotchi.fatigue} + '%'" 
+						th:attr="style='color: ' + (${tamagotchi.fatigue} >= 80 ? 'red' : 'black')">
+					</td>
+			        <td title="행복도는 100%가 최고의 상태입니다." 
+					    th:text="${tamagotchi.happiness} + '%'" 
+					    th:attr="style='color: ' + (${tamagotchi.happiness} <= 30 ? 'red' : 'black')">
+					</td>
+					
 			        <td class="status" 
 					    th:classappend="${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3 
 					                        >= 16.6 ? 'active' : 'inactive'}">
 					    <!-- 상태에 따라 다른 아이콘을 표시 -->
-					    <span th:class="${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3 >= 16.6 ? 'fas fa-smile' : 'fas fa-frown'}"></span>
-					    <span class="status-tooltip" th:text="${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3}"></span>
-					</td>
+					    <span th:class="${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3 >= 16.6 ? 'fas fa-smile-beam fa-2x' : 'fas fa-sad-tear fa-2x'}"></span>
+					    <span class="status-tooltip" th:text="${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3} + '점'"></span>
+					</td>	
 			        <td>
 			            <a href="/tamagotchi/openTamagotchiDetail.do?tamagotchiId=" 
 			                th:attrappend="href=${tamagotchi.tamagotchiId}" class="btn btn-secondary">보살피기</a>
@@ -282,7 +295,7 @@
 				
 				<!-- 타마와 함께하는 시간 표시 텍스트 -->
 			    <div class="responsibility-text" style="margin-left: 0;">
-			        <span id="activeTamaCount" class="tama-count">0</span> 마리의 타마와 소중한 시간을 함께하고 있어요.
+			        나는 <span id="activeTamaCount" class="tama-count">0</span> 마리의 타마와 소중한 시간을 함께하고 있어요.
 			    </div>
 		    
 		        <!-- 하루 건너뛰기 버튼 -->
@@ -294,7 +307,7 @@
     
 	 <!-- 버튼을 감싸는 wrapper 추가 -->
     <div class="btn-wrapper">
-        <a href="/index.html" class="btnBack">로비로 돌아가기</a>
+        <a href="/index.html" class="btn-back">로비로 돌아가기</a>
     </div>  
 	  
     <script>

@@ -69,24 +69,15 @@
             border: none; /* 버튼 테두리 없애기 */
         }
         
-        .btn-play {
+        .btn-hunger {
             background-color: #C58CDC;
         }
-        .btn-play:hover {
+        .btn-hunger:hover {
             background-color: #A274B6;
         }
         
-        .btn-hunger {
-            background-color: #9b59b6; /* 보라색 */
-		    color: white;
-        }
-        .btn-hunger:hover {
-            background-color: #8e44ad; /* 더 진한 보라색 */
-            color: black;
-        }
-        
-        .btn-sleep {
-           background-color: #6a4c9c; /* 더 진한 보라색 */
+        .btn-sleep {    
+		    background-color: #9b59b6; 
 		    color: white;
             padding: 10px 20px;
             border-radius: 50px;
@@ -95,10 +86,20 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             border: none; /* 버튼 테두리 없애기 */
         }
-        .btn-sleep:hover {
+        .btn-sleep:hover { 
+            background-color: #8e44ad; 
+            color: black;
+        }
+        
+        .btn-play {
+            background-color: #6a4c9c;
+		    color: white;
+        }
+        .btn-play:hover {
             background-color: #5c3a73; /* 더 진하고 어두운 보라색 */
             color: black;
         }
+        
         .btn-danger {
             background-color: #e74c3c;
         }
@@ -178,61 +179,78 @@
         <!-- 타마고치 정보 테이블 -->
         <div class="table-section">
             <table class="table table-bordered">
-                <tbody>
-                    <tr>
-					    <td><strong><i class="fas fa-calendar-alt icon"></i>탄생 일시</strong></td>
-					    <td>
-					        <span th:text="${tamagotchi.createDt}"></span>
-					        (나의 <span th:text="${tamagotchi.tamagotchiId}"></span>번째 타마)
-					    </td>
-					</tr>
-                    <tr>
-                        <td><strong><i class="fas fa-utensils icon"></i>배고픔</strong></td>
-                        <td><span id="hunger" th:text="${tamagotchi.hunger}"></span></td>
-                    </tr>
-                    <tr>
-                        <td><strong><i class="fas fa-bed icon"></i>피로도</strong></td>
-                        <td><span id="fatigue" th:text="${tamagotchi.fatigue}"></span></td>
-                    </tr>
-                    <tr>
-                        <td><strong><i class="fas fa-smile icon"></i>행복도</strong></td>
-                        <td><span id="happiness" th:text="${tamagotchi.happiness}"></span></td>
-                    </tr>
-                    <tr>
-                        <td><strong><i class="fas fa-user-circle icon"></i>프로필 사진</strong></td>
-                        <td>
-                        	<div class="file_list">
-							    <!-- 파일 리스트가 있을 경우 -->
-							    <div th:if="${not #lists.isEmpty(tamagotchi.fileInfoList)}">
-							        <a th:each="file : ${tamagotchi.fileInfoList}" 
-							           th:text="|${file.originalFileName} (${file.fileSize}kb)|"
-							           th:href="@{/tamagotchi/downloadTamagotchiFile.do(imageId=${file.imageId}, tamagotchiId=${file.tamagotchiId})}"></a>
-							    </div>
-							
-							    <!-- 파일 리스트가 없을 경우 -->
-							    <div th:if="${#lists.isEmpty(tamagotchi.fileInfoList)}">
-							          <p style="margin: 0; padding: 0;">등록하지 않았습니다.</p>
-							    </div>
-							</div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+		    <tbody>
+		        <tr>
+		            <td style="text-align: right;"><strong><i class="fas fa-calendar-alt icon"></i>탄생 일시</strong></td>
+		            <td style="text-align: center;">
+		                <span th:text="${tamagotchi.createDt}"></span>
+		                (나의 <span th:text="${tamagotchi.tamagotchiId}"></span>번째 타마)
+		            </td>
+		        </tr>
+		        <tr>
+		            <td title="배고픔은 0%가 최고의 상태입니다;" style="text-align: right;"><strong><i class="fas fa-utensils icon"></i>배고픔</strong></td>
+		            <td style="text-align: center;">
+		            	<span id="hunger" title="0%가 최고의 상태입니다." 
+		            	  	  th:text="${tamagotchi.hunger} + '%'"
+		            	  	  th:attr="style='color: ' + (${tamagotchi.hunger} >= 80 ? 'red' : 'black')">
+						 </span>
+					</td>
+		        </tr>
+		        <tr>
+		            <td title="피로도는 0%가 최고의 상태입니다;" style="text-align: right;"><strong><i class="fas fa-bed icon"></i>피로도</strong></td>
+		            <td style="text-align: center;">
+		            	<span id="fatigue" title="0%가 최고의 상태입니다." 
+		            		  th:text="${tamagotchi.fatigue} + '%'" 
+		            		  th:attr="style='color: ' + (${tamagotchi.fatigue} >= 80 ? 'red' : 'black')">
+						</span>
+					</td>
+		        </tr>
+		        <tr>
+		            <td title="행복도는 100%가 최고의 상태입니다;" style="text-align: right;"><strong><i class="fas fa-sun icon"></i>행복도</strong></td>
+		            <td style="text-align: center;">
+					    <span id="happiness" title="100%가 최고의 상태입니다."
+					          th:text="${tamagotchi.happiness} + '%'" 
+						      th:attr="style='color: ' + (${tamagotchi.happiness} <= 30 ? 'red' : 'black')">
+						 </span>
+					</td>
+		        </tr>
+		        <tr>
+		            <td style="text-align: right;"><strong><i class="fas fa-user-circle icon"></i>프로필 사진</strong></td>
+		            <td style="text-align: center;">
+		                <div class="file_list">
+		                    <!-- 파일 리스트가 있을 경우 -->
+		                    <div th:if="${not #lists.isEmpty(tamagotchi.fileInfoList)}">
+		                        <a th:each="file : ${tamagotchi.fileInfoList}" 
+		                           th:text="|${file.originalFileName} (${file.fileSize}kb)|"
+		                           th:href="@{/tamagotchi/downloadTamagotchiFile.do(imageId=${file.imageId}, tamagotchiId=${file.tamagotchiId})}"></a>
+		                    </div>
+		                
+		                    <!-- 파일 리스트가 없을 경우 -->
+		                    <div th:if="${#lists.isEmpty(tamagotchi.fileInfoList)}">
+		                          <p style="margin: 0; padding: 0;">등록하지 않았습니다.</p>
+		                    </div>
+		                </div>
+		            </td>
+		        </tr>
+		    </tbody>
+		</table>
+
         </div>
 
         <!-- 상태 변경 버튼들 -->
         <form id="frm" method="POST">
 		    <input type="hidden" name="tamagotchiId" th:value="${tamagotchi.tamagotchiId}"/>
+		    <input type="hidden" name="state" id="state">  <!-- state 값이 전달되도록 hidden 필드 추가 -->
 		    
 		    <div class="btn-group mb-3" role="group" style="width: 100%;">
-		        <button class="btn btn-play" id="btnPlay" name="play" value="play">놀아주기</button>
-		        <button class="btn btn-hunger" id="btnHunger" name="hunger" value="hunger">밥주기</button>
-		        <button class="btn btn-sleep" id="btnSleep" name="sleep" value="sleep">잠재우기</button>
+		   		<button class="btn btn-hunger" id="btnHunger" type="button" name="state" value="hunger">밥주기</button>
+		   		<button class="btn btn-sleep" id="btnSleep" type="button" name="state" value="sleep">잠재우기</button>
+		        <button class="btn btn-play" id="btnPlay" type="button" name="state" value="play">놀아주기</button>  
 		    </div>
 		
 		    <!-- 입양 보내기 버튼 -->
 			<div class="text-center" >
-			    <button class="btn btn-danger w-100" id="btnDelete" name="delete" value="delete">입양 보내기</button>
+			    <button class="btn btn-danger w-100" id="btnDelete" type="button" name="state" value="delete">입양 보내기</button>
 
 			</div>
 		</form>
@@ -245,50 +263,51 @@
     
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script>
+	    $(function() {
+	        // 공통 폼 제출 함수
+	        function submitForm(action, state) {
+	            let frm = $("#frm")[0];  // 폼 선택
+	            frm.action = action;      // 폼의 action 속성 설정
 	
-    $(function() {
-        
-        // 놀아주기 버튼 클릭 시
-        $("#btnPlay").on("click", function(event) {
-            event.preventDefault(); // 기본 동작(페이지 새로고침) 방지
-            let frm = $("#frm")[0];
-            frm.action = "updatePlay.do"; // action을 'updatePlay.do'로 설정
-            frm.submit(); // 폼 제출
-        });
-
-        // 밥주기 버튼 클릭 시
-        $("#btnHunger").on("click", function(event) {
-            event.preventDefault(); // 기본 동작 방지
-            let frm = $("#frm")[0];
-            frm.action = "updateHunger.do"; // action을 'updateHunger.do'로 설정
-            frm.submit(); // 폼 제출
-        });
-
-        // 잠재우기 버튼 클릭 시
-        $("#btnSleep").on("click", function(event) {
-            event.preventDefault(); // 기본 동작 방지
-            let frm = $("#frm")[0];
-            frm.action = "updateSleep.do"; // action을 'updateSleep.do'로 설정
-            frm.submit(); // 폼 제출
-        });
-
-        // 입양 보내기 버튼 클릭 시
-        $("#btnDelete").on("click", function(event) {
-            event.preventDefault(); // 기본 동작 방지
-            alert("다마고치가 입양갑니다.");
-            let frm = $("#frm")[0];
-            frm.action = "deleteTamagotchi.do"; // action을 'deleteTamagotchi.do'로 설정
-            frm.submit(); // 폼 제출
-        });
-        
-     	// 목록으로 가기 버튼 클릭 시
-        $("#btnList").on("click", function(event) {
-            event.preventDefault(); // 기본 동작 방지
-            location.href = "openTamagotchiList.do"; // 목록 페이지로 이동
-        });
-    });
-    
- 	
-</script>
+	            // 'state' 필드에 전달받은 값 설정
+	            let stateInput = frm.querySelector('input[name="state"]');  
+	            if (stateInput) {
+	                stateInput.value = state;  // state 필드에 값 설정
+	            } else {
+	                alert("폼에 'state' 필드가 없습니다.");  // state 필드가 없으면 경고
+	            }
+	
+	            frm.submit();  // 폼 제출
+	        }
+	
+	        // 각 버튼 클릭 시 해당 상태 값 전달 및 폼 제출
+	        $("#btnHunger").on("click", function(event) {
+	            event.preventDefault();  // 기본 동작 방지
+	            submitForm("updateState.do", "hunger");  // 'hunger' 값 전달
+	        });
+	
+	        $("#btnSleep").on("click", function(event) {
+	            event.preventDefault();  // 기본 동작 방지
+	            submitForm("updateState.do", "sleep");  // 'sleep' 값 전달
+	        });
+	
+	        $("#btnPlay").on("click", function(event) {
+	            event.preventDefault();  // 기본 동작 방지
+	            submitForm("updateState.do", "play");  // 'play' 값 전달
+	        });
+	
+	        $("#btnDelete").on("click", function(event) {
+	            event.preventDefault();  // 기본 동작 방지
+	            alert("다마고치가 입양갑니다.");  // 입양 메시지
+	            submitForm("updateState.do", "delete");  // 'delete' 값 전달
+	        });
+	
+	        // 목록 페이지로 이동
+	        $("#btnList").on("click", function(event) {
+	            event.preventDefault();  // 기본 동작 방지
+	            location.href = "openTamagotchiList.do";  // 목록 페이지로 이동
+	        });
+	    });
+	</script>
 </body>
 </html>

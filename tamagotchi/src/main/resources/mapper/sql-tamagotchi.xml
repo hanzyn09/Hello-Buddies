@@ -3,7 +3,7 @@
 <mapper namespace="tamagotchi.mapper.TamagotchiMapper">
 	<!-- 다마고치 전체 리스트 출력 -->
     <select id="selectTamagotchiList" resultType="tamagotchi.dto.TamagotchiDto">
-        select tamagotchi_id, name, hunger, fatigue, happiness
+        select tamagotchi_id, name, level_number, hunger, fatigue, happiness
           from tamagotchis_M
          where deleted_yn = 'N'
          order by tamagotchi_id
@@ -11,8 +11,8 @@
    
    <!-- 다마고치 등록 -->
     <insert id="insertTamagotchi" useGeneratedKeys="true" keyProperty="tamagotchiId">
-        insert into tamagotchis_M(name, hunger, fatigue, happiness, create_dt, update_dt)
-   		values (#{name}, #{hunger}, #{fatigue}, #{happiness}, now(), now())
+        insert into tamagotchis_M(name, level_number, hunger, fatigue, happiness, create_dt, update_dt)
+   		values (#{name}, #{levelNumber}, #{hunger}, #{fatigue}, #{happiness}, now(), now())
     </insert>
     
     
@@ -28,6 +28,7 @@
     <select id="selectTamagotchiDetail" parameterType="int" resultType="tamagotchi.dto.TamagotchiDto">
 	    SELECT 
 		    m.tamagotchi_id,
+		    m.level_number,
 		    m.name,
 		    m.hunger,
 		    m.fatigue,
@@ -40,27 +41,14 @@
 		    AND m.tamagotchi_id = #{tamagotchiId};
 	</select>
 
-	<update id="updatePlay">
-        update tamagotchis_M
-           set fatigue = fatigue + 5
-             , happiness = happiness + 5
+	<update id="updateState">
+		update tamagotchis_M
+           set hunger = #{hunger}
+             , fatigue = #{fatigue}
+             , happiness = #{happiness}
              , update_dt = now()
-         where tamagotchi_id = #{tamagotchiId}  
-    </update>
-    
-    <update id="updateHunger">
-        update tamagotchis_M
-           set hunger = hunger - 5
-             , update_dt = now()
-         where tamagotchi_id = #{tamagotchiId}  
-    </update>
-    
-    <update id="updateSleep">
-        update tamagotchis_M
-           set fatigue = fatigue - 5
-             , update_dt = now()
-         where tamagotchi_id = #{tamagotchiId}  
-    </update>
+         where tamagotchi_id = #{tamagotchiId} 
+	</update>
     
     <update id="updateDay">
         update tamagotchis_M

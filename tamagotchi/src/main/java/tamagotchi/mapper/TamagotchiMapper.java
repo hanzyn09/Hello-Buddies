@@ -18,18 +18,16 @@ public interface TamagotchiMapper {
 
 	TamagotchiDto selectTamagotchiDetail(int tamagotchiId);
 	
-	void updatePlay(int tamagotchiId);
-
-	void updateHunger(int tamagotchiId);
-
-	void updateSleep(int tamagotchiId);
-
+	void updateState(TamagotchiDto tamagotchiDtoTmp);
+	
 	void deleteTamagotchi(int tamagotchiId);
 
-	void updateDay();
-	
 	List<TamagotchiFileDto> selectTamagotchiFileList(int tamagotchiId);
 	
 	TamagotchiFileDto selectTamagotchiFileInfo(@Param("imageId") int imageId, @Param("tamagotchiId") int tamagotchiId);
+	
+	void updateDay();
 
+	
+	
 }

@@ -30,11 +30,6 @@ public class TamagotchiController {
     @Autowired
     private TamagotchiService tamagotchiService;
     
-    // 새로운 다마고치 등록 화면
-    @GetMapping("/tamagotchiIntroduction.do")
-    public String tamagotchiIntroduction() {
-        return "/tamagotchi/tamagotchiIntroduction";  // 새로운 다마고치 등록 폼 페이지
-    }
     // 게임 설명 화면
     @GetMapping("tamagotchiDescription.do")
     public String tamagotchiDescription() {
@@ -72,46 +67,47 @@ public class TamagotchiController {
         mv.addObject("tamagotchi", tamagotchiDto);
         return mv;
     }
+    
+    //다마고치의 상태 변경을 처리하는 메서드
+    @PostMapping("/updateState.do")
+    public String updateState(@RequestParam("tamagotchiId") int tamagotchiId, @RequestParam("state") String state) {
+        try {
+            // tamagotchiId가 유효한지 체크하는 로직 추가 가능 (예: 존재하는 타마고치인지 확인)
+            if (tamagotchiId <= 0) {
+                throw new IllegalArgumentException("Invalid tamagotchiId: " + tamagotchiId);
+            }
 
-    // 다마고치 상태 수정
-    @PostMapping("/updatePlay.do")
-    public String updatePlay(@RequestParam("tamagotchiId") int tamagotchiId) {
-        tamagotchiService.updatePlay(tamagotchiId);
-        return "redirect:/tamagotchi/openTamagotchiDetail.do?tamagotchiId=" + tamagotchiId;  // 다마고치 상세 페이지로 리다이렉트
+            switch (state) {
+                case "hunger":
+                    tamagotchiService.updateState(tamagotchiId, "hunger");
+                    break;
+                case "sleep":
+                    tamagotchiService.updateState(tamagotchiId, "sleep");
+                    break;
+                case "play":
+                    tamagotchiService.updateState(tamagotchiId, "play");
+                    break;
+                case "delete":
+                    tamagotchiService.deleteTamagotchi(tamagotchiId);
+                    return "redirect:/tamagotchi/openTamagotchiList.do";  // 다마고치 목록 페이지로 리다이렉트
+                default:
+                    throw new IllegalArgumentException("Invalid state: " + state);  // 잘못된 상태일 경우 예외 던짐
+            }
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // 상세 페이지로 리다이렉트 (GET 방식)
+        return "redirect:/tamagotchi/openTamagotchiDetail.do?tamagotchiId=" + tamagotchiId;
     }
 
-    @PostMapping("/updateHunger.do")
-    public String updateHunger(@RequestParam("tamagotchiId") int tamagotchiId) {
-        tamagotchiService.updateHunger(tamagotchiId);
-        return "redirect:/tamagotchi/openTamagotchiDetail.do?tamagotchiId=" + tamagotchiId;  // 다마고치 상세 페이지로 리다이렉트
-    }
-    
-    @PostMapping("/updateSleep.do")
-    public String updateSleep(@RequestParam("tamagotchiId") int tamagotchiId) {
-        tamagotchiService.updateSleep(tamagotchiId);
-        return "redirect:/tamagotchi/openTamagotchiDetail.do?tamagotchiId=" + tamagotchiId;  // 다마고치 상세 페이지로 리다이렉트
-    }
-    
-    @PostMapping("/updateDay.do")
-    public String updateDay() {
-        tamagotchiService.updateDay();
-        return "redirect:/tamagotchi/openTamagotchiList.do";  // 다마고치 목록 페이지로 리다이렉트
-    }
-    
-    // 삭제 요청을 처리할 메서드
-    @PostMapping("/deleteTamagotchi.do")
-    public String deleteTamagotchi(@RequestParam("tamagotchiId") int tamagotchiId) throws Exception {
-        tamagotchiService.deleteTamagotchi(tamagotchiId);
-        return "redirect:/tamagotchi/openTamagotchiList.do";  // 다마고치 목록 페이지로 리다이렉트
-    }
-    
     // 파일 다운로드 요청을 처리하는 메서드 
     @GetMapping("/downloadTamagotchiFile.do")
     public void downloadTamagotchiFile(@RequestParam("imageId") int imageId, @RequestParam("tamagotchiId") int tamagotchiId, HttpServletResponse response) throws Exception {
         // idx와 boardIdx가 일치하는 파일 정보를 조회
-    	log.info(">>>>>>>>");
     	TamagotchiFileDto tamagotchiFileDto = tamagotchiService.selectTamagotchiFileInfo(imageId, tamagotchiId);
-    	log.info(">>>>>>>>>>>>>>>>");
         if (ObjectUtils.isEmpty(tamagotchiFileDto)) {
             return;
         }
@@ -127,5 +123,12 @@ public class TamagotchiController {
         response.getOutputStream().write(file);
         response.getOutputStream().flush();
         response.getOutputStream().close();
+    }
+    
+    // 하루 건너뛰기를 처리할 메서드
+    @PostMapping("/updateDay.do")
+    public String updateDay() {
+        tamagotchiService.updateDay();
+        return "redirect:/tamagotchi/openTamagotchiList.do";  // 다마고치 목록 페이지로 리다이렉트
     }
 }

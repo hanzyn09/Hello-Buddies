@@ -26,7 +26,6 @@
 		    font-size: 40px;
 		    color: #6a4c9c; /* 보라색 계열 */
 		    margin-bottom: 30px;
-		    cursor: pointer; /* 클릭 커서 추가 */
 		}
 		
 		.btn {
@@ -107,36 +106,21 @@
 <body>
 
     <div class="container">
-        <h1 onclick="reloadPage()">My-Tama-Friend</h1>
+        <h1>My-Tama-Friend</h1>
          <!-- 이미지와 안내 문구 -->
         <div class="image-container" >
             <!-- 프로젝트 내의 default-image.jpg 이미지 경로 사용 -->
-            <img src="/images/default-image.jpg" alt="다마고치 이미지" class="img-fluid"  onclick="window.location.href='/tamagotchi/tamagotchiIntroduction.do';">
-            <p>다마고치를 키우고 돌봐보세요!</p>
-        </div>
-
-        <div class="btn-group">
-            <!-- 새로운 다마고치 키우기 버튼 -->
-            <a href="/tamagotchi/createTamagotchi.do" class="btn btn-create">새로 입양하기</a>
-
-            <!-- 다마고치 목록 보기 버튼 -->
-            <a href="/tamagotchi/openTamagotchiList.do" class="btn btn-view">내 다마고치 리스트</a>
+            <img src="/images/default-image.jpg" alt="다마고치 이미지" class="img-fluid"  onclick="window.location.href='/tamagotchi/tamagotchiDescription.do';">         
         </div>
 
         <div class="btn-group">
             <!-- 다마고치 정보 안내 버튼 -->
-            <a href="/tamagotchi/tamagotchiDescription.do" class="btn btn-info">How To Play</a>
+            <a href="/tamagotchi/openTamagotchiList.do" class="btn btn-info">Let's Play !</a>
         </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-	<script>
-		// 페이지 새로고침 함수
-	    function reloadPage() {
-	        location.reload(); // 페이지 새로고침
-	    }
-	</script>
 </body>
 </html>
