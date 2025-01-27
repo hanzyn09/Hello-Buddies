@@ -31,9 +31,9 @@ public class TamagotchiController {
     private TamagotchiService tamagotchiService;
     
     // 게임 설명 화면
-    @GetMapping("tamagotchiDescription.do")
-    public String tamagotchiDescription() {
-        return "/tamagotchi/tamagotchiDescription";  // 다마고치 게임 설명 페이지
+    @GetMapping("about.do")
+    public String about() {
+        return "/tamagotchi/about";  // 다마고치 게임 설명 페이지
     }
     
     // 다마고치 목록 보기
