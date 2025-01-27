@@ -43,20 +43,20 @@
 
 	<update id="updateState">
 		update tamagotchis_M
-           set hunger = #{hunger}
-             , fatigue = #{fatigue}
-             , happiness = #{happiness}
+           set hunger = GREATEST(0, LEAST(100, #{hunger}))
+             , fatigue = GREATEST(0, LEAST(100, #{fatigue}))
+             , happiness = GREATEST(0, LEAST(100, #{happiness}))
              , update_dt = now()
          where tamagotchi_id = #{tamagotchiId} 
 	</update>
     
     <update id="updateDay">
-        update tamagotchis_M
-           set hunger = hunger + 10
-             , fatigue = fatigue + 10
-             , happiness = happiness - 10
-             , update_dt = now()
-         where deleted_yn = 'N' 
+       UPDATE tamagotchis_M
+		  SET hunger = GREATEST(0, LEAST(100, hunger + 10))
+		    , fatigue = GREATEST(0, LEAST(100, fatigue + 10))
+		    , happiness = GREATEST(0, LEAST(100, happiness - 10))
+		    , update_dt = NOW()
+		WHERE deleted_yn = 'N';
     </update>
     
     <delete id="deleteTamagotchi">

@@ -62,32 +62,47 @@ public class TamagotchiServiceImpl implements TamagotchiService{
 
 	@Override
 	public void updateState(int tamagotchiId, String action) {
-		TamagotchiDto tamagotchiDto = tamagochiMapper.selectTamagotchiDetail(tamagotchiId);
-		TamagotchiDto tamagotchiDtoTmp = new TamagotchiDto();
-		
-		tamagotchiDtoTmp.setTamagotchiId(tamagotchiId);
-		
-		switch(action) {
-			case"hunger":
-				tamagotchiDtoTmp.setHunger(tamagotchiDto.getHunger()- 5);
-				tamagotchiDtoTmp.setFatigue(tamagotchiDto.getFatigue());
-				tamagotchiDtoTmp.setHappiness(tamagotchiDto.getHappiness());
-				break;
-			case"sleep":
-				tamagotchiDtoTmp.setHunger(tamagotchiDto.getHunger());
-				tamagotchiDtoTmp.setFatigue(tamagotchiDto.getFatigue()- 5);
-				tamagotchiDtoTmp.setHappiness(tamagotchiDto.getHappiness());
-				break;
-			case"play":
-				tamagotchiDtoTmp.setHunger(tamagotchiDto.getHunger());
-				tamagotchiDtoTmp.setFatigue(tamagotchiDto.getFatigue()+ 5);
-				tamagotchiDtoTmp.setHappiness(tamagotchiDto.getHappiness()+ 5);
-				break;
-			default:
-	            throw new IllegalArgumentException("Invalid action: " + action);  // 잘못된 상태일 경우 예외 던짐
-		}
-		
-		tamagochiMapper.updateState(tamagotchiDtoTmp);
+	    TamagotchiDto tamagotchiDto = tamagochiMapper.selectTamagotchiDetail(tamagotchiId);
+	    TamagotchiDto tamagotchiDtoTmp = new TamagotchiDto();
+	    
+	    tamagotchiDtoTmp.setTamagotchiId(tamagotchiId);
+
+	    // 최소값 0, 최대값 100 설정
+	    int minValue = 0;
+	    int maxValue = 100;
+
+	    switch (action) {
+	        case "hunger":
+	            // hunger 값을 5만큼 감소
+	            int newHunger = tamagotchiDto.getHunger() - 5;
+	            // hunger 값이 0보다 작거나 100보다 크지 않도록 제한
+	            tamagotchiDtoTmp.setHunger(Math.min(Math.max(newHunger, minValue), maxValue)); 
+	            tamagotchiDtoTmp.setFatigue(tamagotchiDto.getFatigue());
+	            tamagotchiDtoTmp.setHappiness(tamagotchiDto.getHappiness());
+	            break;
+	        case "sleep":
+	            // fatigue 값을 5만큼 감소
+	            int newFatigue = tamagotchiDto.getFatigue() - 5;
+	            // fatigue 값이 0보다 작거나 100보다 크지 않도록 제한
+	            tamagotchiDtoTmp.setHunger(tamagotchiDto.getHunger());
+	            tamagotchiDtoTmp.setFatigue(Math.min(Math.max(newFatigue, minValue), maxValue)); 
+	            tamagotchiDtoTmp.setHappiness(tamagotchiDto.getHappiness());
+	            break;
+	        case "play":
+	            // fatigue와 happiness 값을 각각 5만큼 증가
+	            int newPlayFatigue = tamagotchiDto.getFatigue() + 5;
+	            int newPlayHappiness = tamagotchiDto.getHappiness() + 5;
+	            // fatigue와 happiness 값이 0보다 작거나 100보다 크지 않도록 제한
+	            tamagotchiDtoTmp.setHunger(tamagotchiDto.getHunger());
+	            tamagotchiDtoTmp.setFatigue(Math.min(Math.max(newPlayFatigue, minValue), maxValue)); 
+	            tamagotchiDtoTmp.setHappiness(Math.min(Math.max(newPlayHappiness, minValue), maxValue)); 
+	            break;
+	        default:
+	            throw new IllegalArgumentException("Invalid action: " + action);  // 잘못된 액션이 들어왔을 경우 예외 던짐
+	    }
+
+	    // 업데이트된 값을 DB에 반영
+	    tamagochiMapper.updateState(tamagotchiDtoTmp);
 	}
 	
 	@Override
