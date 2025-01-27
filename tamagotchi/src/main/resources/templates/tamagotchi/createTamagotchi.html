@@ -4,130 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My-Tama-Friend</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f9; /* 부드러운 배경 */
-            padding: 30px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .container {
-            flex-grow: 1;
-            width: 70%;
-            margin: auto;
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            font-size: 40px;
-		    color: #6a4c9c; /* 보라색 계열 */
-            margin-bottom: 30px;
-            cursor: pointer;
-        }
-        label {
-            font-size: 16px;
-            color: #5e3a8c;
-        }
-        .form-control, .form-control-file {
-            border-radius: 10px;
-            border: 2px solid #ddd;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .form-control:focus, .form-control-file:focus {
-            border-color: #7ed957;
-            box-shadow: 0 0 5px rgba(94, 58, 140, 0.3);
-            outline: none;
-        }
-        button.btn-primary {
-            background-color: #9b59b6; /* 보라색 */
-		    color: white;
-            font-size: 18px;
-            padding: 12px 20px;
-            border-radius: 30px;
-            border: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            transition: background-color 0.3s;
-        }
-        button.btn-primary:hover {
-            background-color: #8e44ad; /* 더 진한 보라색 */
-            color: black;
-        }
-        .btn-back {
-            background-color: #FFE942; /* 밝은 노란색 */
-		    color: #6a4c9c;
-            font-size: 16px;
-            padding: 10px 20px;
-            border-radius: 30px;
-            border: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 30px;
-            align-self: center;
-        }
-        .btn-back:hover {
-            background-color: #D8C217; /* 더 밝은 노란색 (호버 시) */
-            color: white;
-        }
-        .form-group {
-            margin-bottom: 25px;
-            margin-top: 20px; /* "이름" 필드와 위 텍스트 간의 간격을 띄움 */
-        }
-        .upload-info {
-            font-size: 14px;
-            color: #888;
-            margin-top: 5px;
-        }
-        .form-description {
-            font-size: 16px;
-            color: #333;
-            margin-bottom: 1px;  /* 간격을 줄임 */
-            line-height: 1.5;
-        }
-    </style>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- 커스텀 CSS 파일 -->
+    <link rel="stylesheet" href="/css/createTamagotchi.css">
 </head>
 <body>
 
     <div class="container">
         <h1 onclick="reloadPage()">다마고치 데려오기</h1>
         <p class="form-description">
-        	 <span style="font-size: 20px; color: #e74c3c;">❤️</span>
-        	당신의 새로운 다마고치를 위해 이름과 프로필 사진을 입력하세요.</p>
-		<p class="form-description">
-			 <span style="font-size: 20px; color: #e74c3c;">❤️</span>
-			다마고치를 사랑으로 키우세요!</p>
-		
+            <span style="font-size: 20px; color: #e74c3c;">❤️</span>
+            당신의 새로운 다마고치를 위해 이름과 프로필 사진을 입력하세요.
+        </p>
+        <p class="form-description">
+            <span style="font-size: 20px; color: #e74c3c;">❤️</span>
+            다마고치를 사랑으로 키우세요!
+        </p>
+
         <form action="/tamagotchi/createTamagotchi.do" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="name">이름</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="다마고치의 이름을 입력해주세요" required>
+                <input type="text" class="form-control" id="name" name="name" maxlength="50" placeholder="다마고치의 이름을 입력해주세요" required>
             </div>
 
-            <div class="form-group">
-                <label for="image">프로필 사진</label>
-                <input type="file" class="form-control-file" id="image" name="image">
-                <small class="upload-info">이미지를 선택하여 다마고치의 사진을 업로드할 수 있습니다. (선택 사항)</small>
-            </div>
+            <!-- 프로필 사진 -->
+           <div class="form-group">
+			    <label for="image">프로필 사진 (선택 사항)</label>
+			    <input type="file" class="form-control-file" id="image" name="image" aria-label="다마고치 프로필 사진 선택">
+			</div>
 
             <button type="submit" class="btn btn-primary">완료</button>
         </form>
     </div>
 
     <!-- 하단에 고정된 뒤로 가기 버튼 -->
-    <button type="button" class="btn-back" onclick="goBack()">뒤로가기</button>
+    <div class="btn-wrapper">
+        <button type="button" class="btn-back" onclick="goBack()">뒤로가기</button>
+    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // 페이지 새로고침 함수
         function reloadPage() {
-              location.reload(); // 페이지 새로고침
+            location.reload(); // 페이지 새로고침
         }
 
         // 뒤로 가기 함수
@@ -135,6 +57,6 @@
             window.history.back(); // 이전 페이지로 돌아가기
         }
     </script>
-
+    
 </body>
 </html>

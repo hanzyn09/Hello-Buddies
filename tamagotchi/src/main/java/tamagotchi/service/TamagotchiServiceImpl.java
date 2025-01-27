@@ -3,7 +3,9 @@ package tamagotchi.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -26,7 +28,17 @@ public class TamagotchiServiceImpl implements TamagotchiService{
 	public List<TamagotchiDto> selectTamagotchiList() {
 		return tamagochiMapper.selectTamagotchiList();
 	}
-	
+	/*
+	@Scheduled(fixedRate = 10000)  // 10초마다 실행 (밀리초 단위)
+	public void autoUpdateTamagotchi() {
+	    List<TamagotchiDto> tamagotchiList = selectTamagotchiList();
+	    if (tamagotchiList != null && !tamagotchiList.isEmpty()) {
+	         //타마고치 상태 자동 업데이트
+	        tamagochiMapper.updateDay();
+	    }
+	}
+	*/
+	@Transactional
 	@Override
 	public void createTamagotchi(String name, MultipartHttpServletRequest request) {
 		 // 1. 다마고치 등록
@@ -59,7 +71,8 @@ public class TamagotchiServiceImpl implements TamagotchiService{
         
 	    return tamagotchiDto;
 	}
-
+	
+	@Transactional
 	@Override
 	public void updateState(int tamagotchiId, String action) {
 	    TamagotchiDto tamagotchiDto = tamagochiMapper.selectTamagotchiDetail(tamagotchiId);
@@ -115,6 +128,7 @@ public class TamagotchiServiceImpl implements TamagotchiService{
 		return tamagochiMapper.selectTamagotchiFileInfo(imageId, tamagotchiId);
 	}
 
+	
 	@Override
 	public void updateDay() {
 		tamagochiMapper.updateDay();  

@@ -4,88 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My-Tama-Friend</title>
+    
+    <!-- 외부 라이브러리 로드 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
-        .container {
-            width: 80%;
-            margin: 50px auto;
-            padding: 40px;
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            font-size: 40px;
-		    color: #6a4c9c; /* 보라색 계열 */
-            margin-bottom: 30px;
-        }
-        h2 {
-            color: #5e3a8c;
-            font-size: 28px;
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-        p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: #555;
-            margin-bottom: 1px; /* 간격 줄이기 */
-        }
-        .feature-list {
-            list-style: none;
-            padding-left: 0;
-        }
-        .feature-list li {
-            font-size: 18px;
-            color: #7ed957;
-            margin-bottom: 10px;
-        }
-        .feature-list li i {
-            margin-right: 10px;
-            color: #f39c12;
-        }
-        .btn-back {
-            background-color: #FFE942;
-            color: #6a4c9c;
-            font-size: 16px;
-            padding: 10px 20px;
-            border-radius: 30px;
-            text-align: center;
-            display: inline-block;  /* inline-block으로 변경 */
-            margin: 0 auto;  /* 위쪽 여백을 0으로 줄임 */
-            text-decoration: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 30px;
-            border: none;
-        }
-        .btn-back:hover {
-            background-color: #D8C217;
-            color: white;
-        }
-
-        /* 버튼을 감싸는 부모 요소에 텍스트 중앙 정렬 추가 */
-        .button-wrapper {
-            text-align: center;  /* 버튼을 중앙 정렬 */
-            margin-top: 10px; /* 버튼과 컨테이너 간격을 최소화 */
-        }
-    </style>
+    
+    <!-- 커스텀 CSS 파일 -->
+    <link rel="stylesheet" href="/css/tamagotchiDescription.css">
 </head>
 <body>
 
     <div class="container">
         <h1>게임 설명</h1>
-                      
+                       
         <h2>게임 소개</h2>
         <p>My-Tama-Friend는 가상의 다마고치를 키우는 시뮬레이션 게임입니다.</p>
         <p>플레이어는 다마고치를 입양하여, 그들의 상태를 관리하고 행복하게 키워야 합니다.</p>
@@ -98,11 +29,11 @@
         
         <h2>주요 기능</h2>
         <ul class="feature-list">
-            <li><i class="fas fa-paw"></i><strong>다양한 다마고치 캐릭터</strong> - 여러 종류의 다마고치를 입양하고 성장시키세요.</li>
-            <li><i class="fas fa-utensils"></i><strong>배고픔 관리</strong> - 다마고치의 배고픔을 관리하고 음식을 주세요.</li>
-            <li><i class="fas fa-bed"></i><strong>피로도 관리</strong> - 다마고치가 피로하지 않도록 휴식을 취시켜 주세요.</li>
-            <li><i class="fas fa-heart"></i><strong>행복도 관리</strong> - 다마고치의 행복도를 체크하고, 행복하게 만들어주세요.</li>
-            <li><i class="fas fa-calendar-day"></i><strong>하루 건너뛰기</strong> - 다마고치와 함께하는 시간을 하루 건너뛰기 기능으로 간편하게 관리하세요.</li>
+            <li><i class="fas fa-paw" aria-hidden="true"></i><strong>다양한 다마고치 캐릭터</strong> - 여러 종류의 다마고치를 입양하고 성장시키세요.</li>
+            <li><i class="fas fa-utensils" aria-hidden="true"></i><strong>배고픔 관리</strong> - 다마고치의 배고픔을 관리하고 음식을 주세요.</li>
+            <li><i class="fas fa-bed" aria-hidden="true"></i><strong>피로도 관리</strong> - 다마고치가 피로하지 않도록 휴식을 취시켜 주세요.</li>
+            <li><i class="fas fa-heart" aria-hidden="true"></i><strong>행복도 관리</strong> - 다마고치의 행복도를 체크하고, 행복하게 만들어주세요.</li>
+            <li><i class="fas fa-calendar-day" aria-hidden="true"></i><strong>하루 건너뛰기</strong> - 다마고치와 함께하는 시간을 하루 건너뛰기 기능으로 간편하게 관리하세요.</li>
         </ul>
         
         <h2>게임 진행</h2>
@@ -113,9 +44,14 @@
     </div>
 
     <!-- 버튼을 감싸는 wrapper 추가 -->
-    <div class="button-wrapper">
-        <a href="/index.html" class="btn-back">로비로 돌아가기</a>
+    <div class="button-wrapper text-center">
+        <a href="/index.html" class="btn btn-back">로비로 돌아가기</a>
     </div>
+
+    <!-- JS 파일 로드 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 </html>

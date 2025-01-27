@@ -4,167 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My-Tama-Friend</title>
+   
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">   
-<style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f8f9fa;
-            padding-top: 30px;
-        }
-        .container {
-            max-width: 900px;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-top: 30px;
-        }
-        h3 {
-            text-align: center;
-            color: #5e3a8c;
-            margin-bottom: 20px;
-        }
-        .profile-image {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 5px solid #ddd;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        .tamagotchi-name {
-            font-size: 28px; /* 글씨 크기 증가 */
-            font-weight: bold; /* 글씨 두껍게 */
-            color: #5e3a8c; /* 보라색 */
-            margin-top: 10px; /* 이미지와 이름 사이의 여백 */
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* 그림자 효과로 더 부각 */
-        }
-        .tamagotchi-status {
-		    font-weight: bold;
-		    font-size: 18px;
-		    margin-top: 10px;
-		}
-		
-		.tamagotchi-status.happy {
-		    color: #7ed957; /* 행복한 상태일 때 밝은 초록색 */
-		}
-		
-		.tamagotchi-status.sad {
-		    color: #e74c3c; /* 슬픈 상태일 때 빨간색 */
-		}
-
-        .btn {
-            padding: 10px 20px;
-            border-radius: 50px;
-            background-color: var(--secondary-color);
-            color: white;
-            font-size: 16px;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            border: none; /* 버튼 테두리 없애기 */
-        }
-        
-        .btn-hunger {
-            background-color: #C58CDC;
-        }
-        .btn-hunger:hover {
-            background-color: #A274B6;
-        }
-        
-        .btn-sleep {    
-		    background-color: #9b59b6; 
-		    color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 16px;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            border: none; /* 버튼 테두리 없애기 */
-        }
-        .btn-sleep:hover { 
-            background-color: #8e44ad; 
-            color: black;
-        }
-        
-        .btn-play {
-            background-color: #6a4c9c;
-		    color: white;
-        }
-        .btn-play:hover {
-            background-color: #5c3a73; /* 더 진하고 어두운 보라색 */
-            color: black;
-        }
-        
-        .btn-danger {
-            background-color: #e74c3c;
-        }
-         
-        .btn:focus,
-		.btn:active {
-		    outline: none;   /* 포커스 및 클릭 시 테두리 제거 */
-		    box-shadow: none; /* 포커스 및 클릭 시 그림자 제거 */
-		}
-		
-        .table td {
-            vertical-align: middle;
-        }
-
-        .profile-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .table-section {
-            margin-bottom: 10px;
-        }
-
-        .btn-group {
-            margin-top: 10px;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-         .btn-back {
-            background-color: #FFE942; /* 밝은 노란색 */
-		    color: #6a4c9c;
-            font-size: 18px;
-            padding: 10px 20px;
-            border-radius: 30px;
-            border: none;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 20px;
-            align-self: center;
-        }
-        .btn-back:hover {
-            background-color: #D8C217; /* 더 밝은 노란색 (호버 시) */
-            color: white;
-        }
-        /* 버튼 감싸는 div 스타일 */
-        .btn-wrapper {
-            display: flex;
-            justify-content: center; /* 버튼 중앙 정렬 */
-            margin-top: 10px; /* 버튼과 컨테이너 사이의 간격을 조정 */
-        }
-         .icon {
-            margin-right: 8px; /* 아이콘과 텍스트 사이 간격 */
-        }
-    </style>
+	
+	<!-- 커스텀 CSS 파일 -->
+    <link rel="stylesheet" href="/css/tamagotchiDetail.css">
 </head>
 <body>
     <div class="container">
         <!-- 프로필 이미지 -->
         <div class="profile-section">
         	
-        	<a th:href="@{/images/default-image.jpg}" download>
-			    <img th:src="@{/images/default-image.jpg}" alt="프로필 사진" class="profile-image">
-			</a>
-             
+        	<div class="image-container">
+	        	<a th:href="@{/images/default-image.jpg}" download>
+				    <img th:src="@{/images/default-image.jpg}" alt="프로필 사진" class="profile-image">
+				</a>
+             </div>
             <div class="tamagotchi-name">
                 <span th:text="${tamagotchi.name}"></span>
             </div>
@@ -178,7 +34,7 @@
 
         <!-- 타마고치 정보 테이블 -->
         <div class="table-section">
-            <table class="table table-bordered">
+            <table class="table table-bordered" id="tamagotchiTable">
 		    <tbody>
 		        <tr>
 		            <td style="text-align: right;"><strong><i class="fas fa-calendar-alt icon"></i>탄생 일시</strong></td>
@@ -250,8 +106,9 @@
 		
 		    <!-- 입양 보내기 버튼 -->
 			<div class="text-center" >
-			    <button class="btn btn-danger w-100" id="btnDelete" type="button" name="state" value="delete">입양 보내기</button>
-
+			    <!-- 사용자 메시지 표시용 div -->
+				<div class="alert-message"></div>
+				<button class="btn btn-danger w-100" id="btnDelete" type="button" name="state" value="delete" aria-label="입양 보내기">입양 보내기</button>
 			</div>
 		</form>
     </div>
@@ -262,7 +119,32 @@
     </div> 
     
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<script>
+	/*
+		// 10초마다 전체 타마고치 목록을 갱신하는 AJAX 요청
+		setInterval(function() {
+		    $.ajax({
+		        url: '/tamagotchi/openTamagotchiDetail.do',  // 전체 타마고치 리스트를 반환하는 서버 엔드포인트
+		        method: 'GET',
+		        success: function(tamagotchi) {
+		            // 서버에서 받은 JSON 데이터로 테이블 갱신
+		            $('#hunger').text(tamagotchi.hunger + '%');
+		            $('#fatigue').text(tamagotchi.fatigue + '%');
+		            $('#happiness').text(tamagotchi.happiness + '%');
+
+		            // 각 값의 색상 업데이트
+		            $('#hunger').css('color', tamagotchi.hunger >= 80 ? 'red' : 'black');
+		            $('#fatigue').css('color', tamagotchi.fatigue >= 80 ? 'red' : 'black');
+		            $('#happiness').css('color', tamagotchi.happiness <= 30 ? 'red' : 'black');
+		        },
+		        error: function(error) {
+		            console.log("Error:", error);
+		        }
+		    });
+		}, 10000);  // 10초마다 요청
+	*/
 	    $(function() {
 	        // 공통 폼 제출 함수
 	        function submitForm(action, state) {
@@ -298,7 +180,7 @@
 	
 	        $("#btnDelete").on("click", function(event) {
 	            event.preventDefault();  // 기본 동작 방지
-	            alert("다마고치가 입양갑니다.");  // 입양 메시지
+	            alert("다마고치가 입양갑니다.");  // 사용자에게 메시지 표시
 	            submitForm("updateState.do", "delete");  // 'delete' 값 전달
 	        });
 	

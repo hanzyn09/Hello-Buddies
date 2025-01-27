@@ -4,227 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My-Tama-Friend</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-       <style>
-        /* 기본 색상 설정 */
-        :root {
-            --primary-color: #7ed957; /* 보라색 계열 */
-            --secondary-color: #5e3a8c; /* 보라색 계열 */
-            --tertiary-color: #f8f9fa; /* 배경색 */
-            --highlight-color: #f1c40f; /* 노란색 계열 */
-            --button-hover-color: #66d047; /* 보라색 계열 */
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            width: 80%;
-            margin: 50px auto;
-            padding: 40px;
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        h1 {
-            text-align: center;
-            color: #6a4c9c; /* 보라색 계열 */
-            font-size: 40px;
-            margin-bottom: 30px;
-            cursor: pointer;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 12px;
-            text-align: center;
-            font-size: 18px;
-        }
-
-        th {
-            background-color: #f3e4f7;
-            font-weight: bold;
-            color: var(--secondary-color);
-            cursor: pointer;
-            border-bottom: 2px solid #ddd;
-        }
-
-        th:hover {
-            background-color: #e0c7e4;
-        }
-
-        td {
-            background-color: #faf1f9;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .status {
-            font-weight: bold;
-            border-radius: 5px;
-            padding: 5px 10px;
-            color: white;
-            position: relative;
-            cursor: pointer;
-        }
-
-        .status.active {
-            color : green;
-        }
-
-        .status.inactive {   
-            color : red;
-        }
-
-        /* 툴팁 스타일 */
-        .status-tooltip {
-            visibility: hidden;
-            position: absolute;
-            background-color: rgba(0, 0, 0, 0.75);
-            color: #fff;
-            padding: 5px;
-            border-radius: 5px;
-            font-size: 14px;
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap;
-            z-index: 1000;
-        }
-
-        .status:hover .status-tooltip {
-            visibility: visible;
-        }
-
-        .search-container {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .search-input {
-            width: 60%;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 30px;
-            border: 2px solid #ddd;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 5px rgba(94, 58, 140, 0.3);
-        }
-
-        /* 공통 버튼 스타일 */
-        .btn {
-            padding: 10px 20px;
-            border-radius: 50px;
-            background-color: var(--secondary-color);
-            color: white;
-            font-size: 16px;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            border: none; /* 버튼 테두리 없애기 */
-        }
-
-        .btn:hover {
-            background-color: var(--button-hover-color);
-        }
-
-        .btn-primary {
-            background-color: #9b59b6; /* 보라색 */
-		    color: white;
-        }
-
-        .btn-primary:hover {
-            background-color: #8e44ad; /* 더 진한 보라색 */
-            color: black;
-        }
-
-        .btn-secondary {
-            background-color: #FFE942; /* 밝은 노란색 */
-		    color: #6a4c9c;
-        }
-
-        .btn-secondary:hover {
-            background-color: #D8C217; /* 더 밝은 노란색 (호버 시) */
-            color: white;
-        }
-
-        /* 뒤로가기 버튼 스타일 */
-        .btn-back {
-            display: inline-block;
-            border-radius: 50px;
-            background-color: #FFE942; /* 밝은 노란색 */
-            color: #6a4c9c;
-            font-size: 18px;
-            text-align: center;
-            text-decoration: none;
-            padding: 10px 20px;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-back:hover {
-            background-color: #D8C217; /* 더 밝은 노란색 (호버 시) */
-            color: white;
-            text-decoration: none;  /* hover 시에도 밑줄 없애기 */
-        }
-
-        /* 버튼 감싸는 div 스타일 */
-        .btn-wrapper {
-            display: flex;
-            justify-content: center; /* 버튼 중앙 정렬 */
-            margin-top: 10px; /* 버튼과 컨테이너 사이의 간격을 조정 */
-        }
-
-        .responsibility-text {
-            text-align: center;
-            font-size: 16px;
-            color: var(--secondary-color);
-            margin: 10px 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            letter-spacing: 1px;
-        }
-
-        .tama-count {
-            font-weight: bold;
-            font-size: 23px;
-            color: var(--primary-color);
-        }
-
-        /* 하루 건너 뛰기 버튼 스타일 */
-        .btn-day {
-            background-color: #6a4c9c; /* 더 진한 보라색 */
-		    color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 16px;
-            text-decoration: none;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 마우스를 올렸을 때 더 진한 보라색 */
-        .btn-day:hover {
-            background-color: #5c3a73; /* 더 진하고 어두운 보라색 */
-        }
-    </style>
+   
+    <!-- 커스텀 CSS 파일 -->
+    <link rel="stylesheet" href="/css/tamagotchiList.css">
 </head>
 <body>
 
@@ -255,20 +40,20 @@
 			        <td th:text="${tamagotchi.name}"></td>
 			        <td th:text="'Lv. ' + ${tamagotchi.levelNumber}"></td>
 			        
-			        <td title="배고픔은 0%가 최고의 상태입니다."
+			        <td title="배고픔은 0%가 최고의 상태입니다." id="hunger"
 				        th:text="${tamagotchi.hunger} + '%'" 
 						th:attr="style='color: ' + (${tamagotchi.hunger} >= 80 ? 'red' : 'black')">
 					</td>
-			        <td title="피로도는 0%가 최고의 상태입니다."
+			        <td title="피로도는 0%가 최고의 상태입니다." id="fatigue"
 				        th:text="${tamagotchi.fatigue} + '%'" 
 						th:attr="style='color: ' + (${tamagotchi.fatigue} >= 80 ? 'red' : 'black')">
 					</td>
-			        <td title="행복도는 100%가 최고의 상태입니다." 
+			        <td title="행복도는 100%가 최고의 상태입니다." id="happiness"
 					    th:text="${tamagotchi.happiness} + '%'" 
 					    th:attr="style='color: ' + (${tamagotchi.happiness} <= 30 ? 'red' : 'black')">
 					</td>
 					
-			        <td class="status" 
+			        <td class="status"  id="status"
 					    th:classappend="${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3 
 					                        >= 16.6 ? 'active' : 'inactive'}">
 					    <!-- 상태에 따라 다른 아이콘을 표시 -->
@@ -309,8 +94,39 @@
     <div class="btn-wrapper">
         <a href="/index.html" class="btn-back">로비로 돌아가기</a>
     </div>  
-	  
+	
+	
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
     <script>
+    /*
+		 // 10초마다 전체 타마고치 목록을 갱신하는 AJAX 요청
+		setInterval(function() {
+		    console.log('AJAX request sent'); // 확인용 로그
+		    $.ajax({
+		        url: '/tamagotchi/openTamagotchiList.do',  // 서버 엔드포인트
+		        method: 'GET',
+		        success: function(tamagotchis) {
+		            console.log('Response:', tamagotchis); // 서버 응답 데이터 확인
+		
+		            // 서버에서 받은 JSON 데이터로 테이블 갱신
+		            $('#hunger').text(tamagotchis.hunger + '%');
+		            $('#fatigue').text(tamagotchis.fatigue + '%');
+		            $('#happiness').text(tamagotchis.happiness + '%');
+		
+		            // 각 값의 색상 업데이트
+		            $('#hunger').css('color', tamagotchis.hunger >= 80 ? 'red' : 'black');
+		            $('#fatigue').css('color', tamagotchis.fatigue >= 80 ? 'red' : 'black');
+		            $('#happiness').css('color', tamagotchis.happiness <= 30 ? 'red' : 'black');
+		        },
+		        error: function(error) {
+		            console.log("Error:", error);
+		        }
+		    });
+		}, 10000);  // 10초마다 요청
+*/
+	
 	 	// 타이틀 클릭 시 현재 페이지 새로 고침
 	    function refreshPage() {
 	        location.reload(); // 페이지 새로 고침
