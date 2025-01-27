@@ -42,11 +42,11 @@ public class TransactionAspect {
         return transactionInterceptor;
     }
     
-    // AOP 포이트컷과 어드바이저 설정
+    // AOP 포인트컷과 어드바이저 설정
     @Bean
     Advisor transactionAdviceAdvisor() {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression("execution(* board..service.*Impl.*(..))");
+        pointcut.setExpression("execution(* tamagotchi..service.*Impl.*(..))");
         
         return new DefaultPointcutAdvisor(pointcut, transactionAdvice());
     }
