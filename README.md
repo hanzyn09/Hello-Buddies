@@ -26,6 +26,7 @@ The `tamagotchis_M` table is the main table that stores information about each T
 CREATE TABLE tamagotchis_M (
     tamagotchi_id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(50) NOT NULL,
+    level_number INT DEFAULT 1,
     hunger INT DEFAULT 50,
     fatigue INT DEFAULT 50,
     happiness INT DEFAULT 50,
