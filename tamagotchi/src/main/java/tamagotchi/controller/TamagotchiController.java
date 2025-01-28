@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -70,29 +71,35 @@ public class TamagotchiController {
     
     //다마고치의 상태 변경을 처리하는 메서드
     @PostMapping("/updateState.do")
-    public String updateState(@RequestParam("tamagotchiId") int tamagotchiId, @RequestParam("state") String state) {
+    public String updateState(@RequestParam("tamagotchiId") int tamagotchiId, @RequestParam("state") String state, RedirectAttributes redirectAttributes) {
         try {
             // tamagotchiId가 유효한지 체크하는 로직 추가 가능 (예: 존재하는 타마고치인지 확인)
             if (tamagotchiId <= 0) {
                 throw new IllegalArgumentException("Invalid tamagotchiId: " + tamagotchiId);
             }
 
+            String message = "";
+            
             switch (state) {
                 case "hunger":
-                    tamagotchiService.updateState(tamagotchiId, "hunger");
+                	message = tamagotchiService.updateState(tamagotchiId, "hunger");
                     break;
                 case "sleep":
-                    tamagotchiService.updateState(tamagotchiId, "sleep");
+                	message = tamagotchiService.updateState(tamagotchiId, "sleep");
                     break;
                 case "play":
-                    tamagotchiService.updateState(tamagotchiId, "play");
+                	message = tamagotchiService.updateState(tamagotchiId, "play");
                     break;
                 case "delete":
-                    tamagotchiService.deleteTamagotchi(tamagotchiId);
+                	message = tamagotchiService.deleteTamagotchi(tamagotchiId);
                     return "redirect:/tamagotchi/openTamagotchiList.do";  // 다마고치 목록 페이지로 리다이렉트
                 default:
                     throw new IllegalArgumentException("Invalid state: " + state);  // 잘못된 상태일 경우 예외 던짐
             }
+            
+            // 리다이렉트할 때 알림 메시지 전달
+            redirectAttributes.addFlashAttribute("alertMessage", message);
+            
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -127,11 +134,13 @@ public class TamagotchiController {
 
     //시간 경과를 처리하는 메서드
     @PostMapping("/updateDate.do")
-    public String updateDate(@RequestParam("state") String state) {
-        try {
-            switch (state) {
+    public String updateDate(@RequestParam("state") String state, RedirectAttributes redirectAttributes) {
+    	String message = "";
+    	
+        try {       
+        	switch (state) {
                 case "day":
-                    tamagotchiService.updateDate("day");
+                	message = tamagotchiService.updateDate("day");
                     break;
                 default:
                     throw new IllegalArgumentException("Invalid state: " + state);  // 잘못된 상태일 경우 예외 던짐
@@ -142,6 +151,9 @@ public class TamagotchiController {
             e.printStackTrace();
         }
 
+        // 리다이렉트할 때 알림 메시지 전달
+        redirectAttributes.addFlashAttribute("alertMessage", message);
+        
         return "redirect:/tamagotchi/openTamagotchiList.do";  // 다마고치 목록 페이지로 리다이렉트
     }
 }

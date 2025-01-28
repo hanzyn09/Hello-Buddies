@@ -15,11 +15,11 @@ public interface TamagotchiService {
 
 	TamagotchiDto selectTamagotchiDetail(int tamagotchiId);
 	
-	void updateState(int tamagotchiId, String action);
+	String updateState(int tamagotchiId, String action);
 	
-	void deleteTamagotchi(int tamagotchiId);
+	String deleteTamagotchi(int tamagotchiId);
 
 	TamagotchiFileDto selectTamagotchiFileInfo(int imageId, int tamagotchiId);
 
-	void updateDate(String action);
+	String updateDate(String action);
 }

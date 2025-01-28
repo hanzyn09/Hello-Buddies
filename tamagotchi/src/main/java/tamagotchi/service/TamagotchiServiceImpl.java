@@ -69,10 +69,12 @@ public class TamagotchiServiceImpl implements TamagotchiService {
 	}
 
 	@Override
-	public void updateState(int tamagotchiId, String action) {
+	public String updateState(int tamagotchiId, String action) {
 		TamagotchiDto tamagotchiDto = tamagochiMapper.selectTamagotchiDetail(tamagotchiId);
 		TamagotchiDto tamagotchiDtoTmp = new TamagotchiDto();
 
+		String message = tamagotchiDto.getName();
+		
 		// 기존값 셋팅
 		int oldLevelNumber = tamagotchiDto.getLevelNumber();
 		int oldHunger = tamagotchiDto.getHunger();
@@ -82,65 +84,82 @@ public class TamagotchiServiceImpl implements TamagotchiService {
 		tamagotchiDtoTmp.setTamagotchiId(tamagotchiId);
 
 		// 액션에 따른 상태 업데이트
-		updateTamagotchiState(action, oldLevelNumber, oldHunger, oldFatigue, oldHappiness, tamagotchiDtoTmp);
+		 message = updateTamagotchiState(action, message, oldLevelNumber, oldHunger, oldFatigue, oldHappiness, tamagotchiDtoTmp);
 
 		// 업데이트된 값을 DB에 반영
 		tamagochiMapper.updateState(tamagotchiDtoTmp);
+		
+		return message;
 	}
 
-	private void updateTamagotchiState(String action, int oldLevelNumber, int oldHunger, int oldFatigue,
+	private String updateTamagotchiState(String action, String message, int oldLevelNumber, int oldHunger, int oldFatigue,
 										int oldHappiness, TamagotchiDto tamagotchiDtoTmp) {
 		final int minValue = 0;
 		final int maxValue = 100;
-
+		
 		switch (action) {
 		case "hunger":
 			int newHunger = Math.min(Math.max(oldHunger - 5, minValue), maxValue);
+			
+			message += "(은)는 먹이를 먹었습니다.";
 			
 			if (newHunger == 0 && oldFatigue == 0 && oldHappiness == 100) {
 				tamagotchiDtoTmp.setLevelNumber(oldLevelNumber + 1);
 				newHunger = 50;
 				oldFatigue = 50;
 				oldHappiness = 50;
+				
+				message += " 그리고 진화했습니다!";
 			} else 
 				tamagotchiDtoTmp.setLevelNumber(oldLevelNumber);
 			
 			tamagotchiDtoTmp.setHunger(newHunger);
 			tamagotchiDtoTmp.setFatigue(oldFatigue);
 			tamagotchiDtoTmp.setHappiness(oldHappiness);
+			
 			break;
 
 		case "sleep":
 			int newFatigue = Math.min(Math.max(oldFatigue - 5, minValue), maxValue);
+			
+			message += "(은)는 푹 잤습니다.";
 			
 			if (oldHunger == 0 && newFatigue == 0 && oldHappiness == 100) {
 				tamagotchiDtoTmp.setLevelNumber(oldLevelNumber + 1);
 				oldHunger = 50;
 				newFatigue = 50;
 				oldHappiness = 50;
+				
+				message += " 그리고 진화했습니다!";
 			} else 
 				tamagotchiDtoTmp.setLevelNumber(oldLevelNumber);
 			
 			tamagotchiDtoTmp.setHunger(oldHunger);
 			tamagotchiDtoTmp.setFatigue(newFatigue);
 			tamagotchiDtoTmp.setHappiness(oldHappiness);
+			
 			break;
 
 		case "play":
 			int newPlayFatigue = Math.min(Math.max(oldFatigue + 5, minValue), maxValue);
 			int newPlayHappiness = Math.min(Math.max(oldHappiness + 5, minValue), maxValue);
 			
+			message += "(은)는 신나게 놀았습니다.";
+			
 			if (oldHunger == 0 && newPlayFatigue == 0 && newPlayHappiness == 100) {
 				tamagotchiDtoTmp.setLevelNumber(oldLevelNumber + 1);
 				oldHunger = 50;
 				newPlayFatigue = 50;
 				newPlayHappiness = 50;
+				
+				message += " 그리고 진화했습니다!";
 			} else 
 				tamagotchiDtoTmp.setLevelNumber(oldLevelNumber);
 			
 			tamagotchiDtoTmp.setHunger(oldHunger);
 			tamagotchiDtoTmp.setFatigue(newPlayFatigue);
 			tamagotchiDtoTmp.setHappiness(newPlayHappiness);
+			
 			break;
 			
 		case "day":
@@ -163,11 +182,14 @@ public class TamagotchiServiceImpl implements TamagotchiService {
 		default:
 			throw new IllegalArgumentException("Invalid action: " + action);
 		}
+		return message;
 	}
 
 	@Override
-	public void deleteTamagotchi(int tamagotchiId) {
+	public String deleteTamagotchi(int tamagotchiId) {
+		String message = "다마고치가 입양갔습니다.";
 		tamagochiMapper.deleteTamagotchi(tamagotchiId);
+		return message;
 	}
 
 	@Override
@@ -176,8 +198,9 @@ public class TamagotchiServiceImpl implements TamagotchiService {
 	}
 
 	@Override
-	public void updateDate(String action) {
+	public String updateDate(String action) {
 		List<TamagotchiDto> list = this.selectTamagotchiList();
+		String message = "하루가 경과했습니다.";
 
 		for (TamagotchiDto tamagotchi : list) {
 			TamagotchiDto tamagotchiDto = this.selectTamagotchiDetail(tamagotchi.getTamagotchiId());
@@ -185,11 +208,12 @@ public class TamagotchiServiceImpl implements TamagotchiService {
 
 			tamagotchiDtoTmp.setTamagotchiId(tamagotchiDto.getTamagotchiId());
 			
-			 updateTamagotchiState(action, tamagotchiDto.getLevelNumber(), tamagotchiDto.getHunger(),
+			 updateTamagotchiState(action, message, tamagotchiDto.getLevelNumber(), tamagotchiDto.getHunger(),
 	                    tamagotchiDto.getFatigue(), tamagotchiDto.getHappiness(), tamagotchiDtoTmp);
 			 
 			// 업데이트된 값을 DB에 반영
 			tamagochiMapper.updateState(tamagotchiDtoTmp);
 		}
+		return message;
 	}
 }

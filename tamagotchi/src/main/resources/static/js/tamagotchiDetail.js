@@ -34,7 +34,7 @@ $(function() {
 
 	$("#btnDelete").on("click", function(event) {
 		event.preventDefault();  // 기본 동작 방지
-		alert("다마고치가 입양갑니다.");  // 사용자에게 메시지 표시
+		alert("다마고치를 입양 보냅니다.");  // 사용자에게 메시지 표시
 		submitForm("updateState.do", "delete");  // 'delete' 값 전달
 	});
 
