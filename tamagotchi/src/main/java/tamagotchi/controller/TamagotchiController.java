@@ -124,17 +124,24 @@ public class TamagotchiController {
         response.getOutputStream().flush();
         response.getOutputStream().close();
     }
-    
-    // 하루 건너뛰기를 처리할 메서드
-    @PostMapping("/updateDay.do")
-    public String updateDay() {
-    	//List<TamagotchiDto> list = tamagotchiService.selectTamagotchiList();
-    	//TamagotchiDto tamagotchiDto = tamagotchiService.selectTamagotchiDetail(tamagotchiId);
-    	
-    	//for(int tamagotchi: list){
-    		//TamagotchiDto tamagotchiDto = tamagotchiService.selectTamagotchiDetail(tamagotchiId);
-    		tamagotchiService.updateDay();
-    	//}
+
+    //시간 경과를 처리하는 메서드
+    @PostMapping("/updateDate.do")
+    public String updateDate(@RequestParam("state") String state) {
+        try {
+            switch (state) {
+                case "day":
+                    tamagotchiService.updateDate("day");
+                    break;
+                default:
+                    throw new IllegalArgumentException("Invalid state: " + state);  // 잘못된 상태일 경우 예외 던짐
+            }
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         return "redirect:/tamagotchi/openTamagotchiList.do";  // 다마고치 목록 페이지로 리다이렉트
     }
 }

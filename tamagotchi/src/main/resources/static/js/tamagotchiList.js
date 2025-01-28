@@ -129,6 +129,52 @@ function updateActiveTamaCount() {
 
 	document.getElementById('activeTamaCount').textContent = activeTamaCount; // 갯수 업데이트
 }
+
+$(function() {
+	// 공통 폼 제출 함수
+	function submitForm(action, state) {
+		let frm = $("#frm")[0];  // 폼 선택
+		frm.action = action;      // 폼의 action 속성 설정
+
+		// 'state' 필드에 전달받은 값 설정
+		let stateInput = frm.querySelector('input[name="state"]');
+		if (stateInput) {
+			stateInput.value = state;  // state 필드에 값 설정
+		} else {
+			alert("폼에 'state' 필드가 없습니다.");  // state 필드가 없으면 경고
+		}
+
+		frm.submit();  // 폼 제출
+	}
+	
+	// 하루 건너뛰기 버튼 클릭 시
+	$("#btnDay").on("click", function(event) {
+		event.preventDefault(); // 기본 동작 방지
+	
+		// 타마고치가 있는지 확인
+		var tamagotchiRows = document.getElementById("tamagotchiTableBody").getElementsByTagName("tr");
+		var hasData = false;
+		for (var i = 0; i < tamagotchiRows.length; i++) {
+			// 'noDataRow' 행을 제외하고 데이터가 있는지 확인
+			if (tamagotchiRows[i].style.display !== 'none' && tamagotchiRows[i].id !== 'noDataRow') {
+				hasData = true;
+				break;
+			}
+		}
+	
+		// 데이터가 없으면 경고 메시지 표시하고 동작 안 함
+		if (!hasData) {
+			alert("현재 키우는 다마고치가 없습니다. 다마고치를 추가해주세요.");
+		} else {
+			alert("하루 건너뛰기 버튼을 클릭했습니다. 다마고치 상태가 변화합니다.");
+			let frm = $("#frm")[0];
+			//frm.action = "updateDay.do"; // action을 'updateDay.do'로 설정
+			//frm.submit(); // 폼 제출
+			submitForm("updateDate.do", "day");  // 'day' 값 전달
+		}
+	});
+});
+
 /********************************************************************************************************************* */
 // 페이지 로드 시 데이터가 없는지 확인하고, 없으면 "조회된 다마고치가 없습니다." 안내 문구 표시
 document.addEventListener("DOMContentLoaded", function() {
@@ -156,33 +202,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		noDataRow.style.display = "";
 	}
 });
-
-// 하루 건너뛰기 버튼 클릭 시
-$("#btnDay").on("click", function(event) {
-	event.preventDefault(); // 기본 동작 방지
-
-	// 타마고치가 있는지 확인
-	var tamagotchiRows = document.getElementById("tamagotchiTableBody").getElementsByTagName("tr");
-	var hasData = false;
-	for (var i = 0; i < tamagotchiRows.length; i++) {
-		// 'noDataRow' 행을 제외하고 데이터가 있는지 확인
-		if (tamagotchiRows[i].style.display !== 'none' && tamagotchiRows[i].id !== 'noDataRow') {
-			hasData = true;
-			break;
-		}
-	}
-
-	// 데이터가 없으면 경고 메시지 표시하고 동작 안 함
-	if (!hasData) {
-		alert("현재 키우는 다마고치가 없습니다. 다마고치를 추가해주세요.");
-	} else {
-		alert("하루 건너뛰기 버튼을 클릭했습니다. 다마고치 상태가 변화합니다.");
-		let frm = $("#frm")[0];
-		frm.action = "updateDay.do"; // action을 'updateDay.do'로 설정
-		frm.submit(); // 폼 제출
-	}
-});
-
 /*
 		 // 10초마다 전체 타마고치 목록을 갱신하는 AJAX 요청
 		setInterval(function() {

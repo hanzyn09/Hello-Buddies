@@ -26,8 +26,4 @@ public interface TamagotchiMapper {
 	
 	TamagotchiFileDto selectTamagotchiFileInfo(@Param("imageId") int imageId, @Param("tamagotchiId") int tamagotchiId);
 	
-	void updateDay();
-
-	
-	
 }

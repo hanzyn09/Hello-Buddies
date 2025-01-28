@@ -20,7 +20,6 @@ public interface TamagotchiService {
 	void deleteTamagotchi(int tamagotchiId);
 
 	TamagotchiFileDto selectTamagotchiFileInfo(int imageId, int tamagotchiId);
-	
-	void updateDay();
 
+	void updateDate(String action);
 }
