@@ -128,7 +128,13 @@ public class TamagotchiController {
     // 하루 건너뛰기를 처리할 메서드
     @PostMapping("/updateDay.do")
     public String updateDay() {
-        tamagotchiService.updateDay();
+    	//List<TamagotchiDto> list = tamagotchiService.selectTamagotchiList();
+    	//TamagotchiDto tamagotchiDto = tamagotchiService.selectTamagotchiDetail(tamagotchiId);
+    	
+    	//for(int tamagotchi: list){
+    		//TamagotchiDto tamagotchiDto = tamagotchiService.selectTamagotchiDetail(tamagotchiId);
+    		tamagotchiService.updateDay();
+    	//}
         return "redirect:/tamagotchi/openTamagotchiList.do";  // 다마고치 목록 페이지로 리다이렉트
     }
 }

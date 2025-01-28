@@ -42,7 +42,15 @@
 		            </td>
 		        </tr>
 		        <tr>
-		            <td title="배고픔은 0%가 최고의 상태입니다;" style="text-align: right;"><strong><i class="fas fa-utensils icon"></i>배고픔</strong></td>
+		            <td title="레벨" style="text-align: right;"><strong><i class="fas fa-star icon"></i>레벨</strong></td>
+		            <td style="text-align: center;">
+		            	<span id="levelNumber" title="최고의 상태가 되면 진화합니다." 
+		            	  	  th:text="'Lv. ' + ${tamagotchi.levelNumber}">
+						 </span>
+					</td>
+		        </tr>
+		        <tr>
+		            <td title="배고픔은 0%가 최고의 상태입니다." style="text-align: right;"><strong><i class="fas fa-utensils icon"></i>배고픔</strong></td>
 		            <td style="text-align: center;">
 		            	<span id="hunger" title="0%가 최고의 상태입니다." 
 		            	  	  th:text="${tamagotchi.hunger} + '%'"
@@ -51,7 +59,7 @@
 					</td>
 		        </tr>
 		        <tr>
-		            <td title="피로도는 0%가 최고의 상태입니다;" style="text-align: right;"><strong><i class="fas fa-bed icon"></i>피로도</strong></td>
+		            <td title="피로도는 0%가 최고의 상태입니다." style="text-align: right;"><strong><i class="fas fa-bed icon"></i>피로도</strong></td>
 		            <td style="text-align: center;">
 		            	<span id="fatigue" title="0%가 최고의 상태입니다." 
 		            		  th:text="${tamagotchi.fatigue} + '%'" 
@@ -60,7 +68,7 @@
 					</td>
 		        </tr>
 		        <tr>
-		            <td title="행복도는 100%가 최고의 상태입니다;" style="text-align: right;"><strong><i class="fas fa-sun icon"></i>행복도</strong></td>
+		            <td title="행복도는 100%가 최고의 상태입니다." style="text-align: right;"><strong><i class="fas fa-sun icon"></i>행복도</strong></td>
 		            <td style="text-align: center;">
 					    <span id="happiness" title="100%가 최고의 상태입니다."
 					          th:text="${tamagotchi.happiness} + '%'" 

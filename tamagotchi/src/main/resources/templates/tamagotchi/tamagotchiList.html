@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/tamagotchiList.css">
+    <style>
+ 
+    </style>
 </head>
 <body>
     <div class="container">
@@ -22,7 +25,7 @@
                 <tr>
                     <th onclick="sortTable(0, 'number')">탄생 순서</th>
                     <th onclick="sortTable(1, 'string')">이름</th>
-                    <th title="레벨업을 시켜보세요!" onclick="sortTable(2, 'number')">레벨</th>
+                    <th title="레벨" onclick="sortTable(2, 'number')"><i class="fas fa-star"></i></th>
                     <th title="배고픔" onclick="sortTable(3, 'number')"><i class="fas fa-utensils icon"></i></th>
                     <th title="피로도" onclick="sortTable(4, 'number')"><i class="fas fa-bed icon"></i></th>
                     <th title="행복도" onclick="sortTable(5, 'number')"><i class="fas fa-sun icon"></i></th>
@@ -35,7 +38,8 @@
 			    <tr th:each="tamagotchi, iterStat : ${tamagotchis}">
 			        <td th:text="${tamagotchi.tamagotchiId}"></td>
 			        <td th:text="${tamagotchi.name}"></td>
-			        <td th:text="'Lv. ' + ${tamagotchi.levelNumber}"></td>
+			        <td title="최고의 상태가 되면 진화합니다." id="levelNumber"
+			        	th:text="'Lv. ' + ${tamagotchi.levelNumber}"></td>
 			        
 			        <td title="배고픔은 0%가 최고의 상태입니다." id="hunger"
 				        th:text="${tamagotchi.hunger} + '%'" 

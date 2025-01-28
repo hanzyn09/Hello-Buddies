@@ -15,8 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 public class TamagotchiApplication {
 
 	public static void main(String[] args) {
-		log.info("WELCOME TO THE MY-TAMA-FRIEND");
-		SpringApplication.run(TamagotchiApplication.class, args);
+			log.info("WELCOME TO THE MY-TAMA-FRIEND");
+			SpringApplication.run(TamagotchiApplication.class, args);
 	}
 
 }

@@ -37,8 +37,7 @@ public class TamagotchiServiceImpl implements TamagotchiService{
 	        tamagochiMapper.updateDay();
 	    }
 	}
-	*/
-	@Transactional
+	*/	
 	@Override
 	public void createTamagotchi(String name, MultipartHttpServletRequest request) {
 		 // 1. 다마고치 등록
@@ -72,7 +71,6 @@ public class TamagotchiServiceImpl implements TamagotchiService{
 	    return tamagotchiDto;
 	}
 	
-	@Transactional
 	@Override
 	public void updateState(int tamagotchiId, String action) {
 	    TamagotchiDto tamagotchiDto = tamagochiMapper.selectTamagotchiDetail(tamagotchiId);
