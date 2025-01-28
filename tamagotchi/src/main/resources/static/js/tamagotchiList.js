@@ -111,25 +111,6 @@ function searchTamagotchi() {
 	updateActiveTamaCount();
 }
 
-// 타마고치 수 업데이트 함수
-function updateActiveTamaCount() {
-	var activeTamaCount = 0;
-	var rows = document.querySelectorAll('#tamagotchiTable tbody tr');
-
-	// '조회된 다마고치가 없습니다.'를 제외한 나머지 tr만 카운트
-	rows.forEach(function(row) {
-		// 'noDataRow' id를 가진 행은 제외
-		if (row.id !== 'noDataRow') {
-			var isDeleted = row.getAttribute('data-deleted') === 'true'; // 데이터 속성으로 삭제 여부 확인
-			if (!isDeleted) { // 삭제되지 않은 것만 카운트
-				activeTamaCount++;
-			}
-		}
-	});
-
-	document.getElementById('activeTamaCount').textContent = activeTamaCount; // 갯수 업데이트
-}
-
 $(function() {
 	// 공통 폼 제출 함수
 	function submitForm(action, state) {
@@ -168,18 +149,54 @@ $(function() {
 		} else {
 			alert("하루 건너뛰기 버튼을 클릭했습니다. 다마고치 상태가 변화합니다.");
 			let frm = $("#frm")[0];
-			//frm.action = "updateDay.do"; // action을 'updateDay.do'로 설정
-			//frm.submit(); // 폼 제출
 			submitForm("updateDate.do", "day");  // 'day' 값 전달
 		}
 	});
 });
 
-/********************************************************************************************************************* */
 // 페이지 로드 시 데이터가 없는지 확인하고, 없으면 "조회된 다마고치가 없습니다." 안내 문구 표시
 document.addEventListener("DOMContentLoaded", function() {
+	// 페이지 로딩 시 타마고치 데이터가 없으면 안내 문구 표시
+	var tamagotchiRows = document.getElementById("tamagotchiTableBody").getElementsByTagName("tr");
+	var noDataRow = document.getElementById('noDataRow'); // '조회된 다마고치가 없습니다.' 안내 문구
+
+	// 데이터가 없다면 안내 문구를 보이게
+	var hasData = false;
+	for (var i = 0; i < tamagotchiRows.length; i++) {
+	    // 데이터 행이 하나라도 있으면 hasData를 true로 설정
+	    if (tamagotchiRows[i].style.display !== 'none' && tamagotchiRows[i].id !== 'noDataRow') {
+	        hasData = true;
+	        break;
+	    }
+	}
+
+	if (hasData) {
+	    noDataRow.style.display = "none";  // 데이터가 있으면 안내 문구 숨기기
+	} else {
+	    noDataRow.style.display = "";  // 데이터가 없으면 안내 문구 표시
+	}
+	
 	updateActiveTamaCount(); // 페이지 로드 시 타마고치 수 업데이트
 });
+
+// 타마고치 수 업데이트 함수
+function updateActiveTamaCount() {
+	var activeTamaCount = 0;
+	var rows = document.querySelectorAll('#tamagotchiTable tbody tr');
+
+	// '조회된 다마고치가 없습니다.'를 제외한 나머지 tr만 카운트
+	rows.forEach(function(row) {
+		// 'noDataRow' id를 가진 행은 제외
+		if (row.id !== 'noDataRow') {
+			var isDeleted = row.getAttribute('data-deleted') === 'true'; // 데이터 속성으로 삭제 여부 확인
+			if (!isDeleted) { // 삭제되지 않은 것만 카운트
+				activeTamaCount++;
+			}
+		}
+	});
+
+	document.getElementById('activeTamaCount').textContent = activeTamaCount; // 갯수 업데이트
+}
 
 // 데이터가 없는지 확인하여 "조회된 다마고치가 없습니다." 안내 문구 표시
 document.addEventListener("DOMContentLoaded", function() {
@@ -202,29 +219,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		noDataRow.style.display = "";
 	}
 });
-/*
-		 // 10초마다 전체 타마고치 목록을 갱신하는 AJAX 요청
-		setInterval(function() {
-			console.log('AJAX request sent'); // 확인용 로그
-			$.ajax({
-				url: '/tamagotchi/openTamagotchiList.do',  // 서버 엔드포인트
-				method: 'GET',
-				success: function(tamagotchis) {
-					console.log('Response:', tamagotchis); // 서버 응답 데이터 확인
-		
-					// 서버에서 받은 JSON 데이터로 테이블 갱신
-					$('#hunger').text(tamagotchis.hunger + '%');
-					$('#fatigue').text(tamagotchis.fatigue + '%');
-					$('#happiness').text(tamagotchis.happiness + '%');
-		
-					// 각 값의 색상 업데이트
-					$('#hunger').css('color', tamagotchis.hunger >= 80 ? 'red' : 'black');
-					$('#fatigue').css('color', tamagotchis.fatigue >= 80 ? 'red' : 'black');
-					$('#happiness').css('color', tamagotchis.happiness <= 30 ? 'red' : 'black');
-				},
-				error: function(error) {
-					console.log("Error:", error);
-				}
-			});
-		}, 10000);  // 10초마다 요청
-		*/
+
+$(document).ready(function() {
+    // 30초마다 "하루가 경과했습니다!" 알림을 띄우고 화면을 새로 고침
+    setInterval(function() {
+        alert("하루가 경과했습니다! 타마고치 상태를 확인해주세요.");
+        location.reload();  // 페이지 새로 고침
+    }, 30000);  // 30000ms = 60초마다 호출
+});

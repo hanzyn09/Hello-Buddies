@@ -28,13 +28,16 @@ public class TamagotchiServiceImpl implements TamagotchiService {
 		return tamagochiMapper.selectTamagotchiList();
 	}
 
-	/*
-	 * @Scheduled(fixedRate = 10000) // 10초마다 실행 (밀리초 단위) public void
-	 * autoUpdateTamagotchi() { List<TamagotchiDto> tamagotchiList =
-	 * selectTamagotchiList(); if (tamagotchiList != null &&
-	 * !tamagotchiList.isEmpty()) { //타마고치 상태 자동 업데이트 tamagochiMapper.updateDay(); }
-	 * }
-	 */
+	@Scheduled(fixedRate = 30000) // 30초마다 실행 (30000ms)
+    public void autoUpdateState() {
+        log.info("자동 타마고치 상태 업데이트 시작");
+        List<TamagotchiDto> tamagotchiList = selectTamagotchiList();
+        if (tamagotchiList != null && !tamagotchiList.isEmpty()) {
+        	this.updateDate("day");
+        }
+        log.info("자동 타마고치 상태 업데이트 완료");
+    }
+	
 	@Override
 	public void createTamagotchi(String name, MultipartHttpServletRequest request) {
 		// 1. 다마고치 등록

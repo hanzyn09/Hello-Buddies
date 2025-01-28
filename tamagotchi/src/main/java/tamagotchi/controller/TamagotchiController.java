@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -46,6 +47,16 @@ public class TamagotchiController {
         return mv;
     }
 
+    //다마고치 상세페이지 상태 자동 업데이트
+    @GetMapping("/getTamagotchiStatus.do")
+    @ResponseBody  // JSON 형태로 응답을 반환
+    public TamagotchiDto getTamagotchiStatus(@RequestParam("tamagotchiId") int tamagotchiId) {
+        TamagotchiDto tamagotchiDto = tamagotchiService.selectTamagotchiDetail(tamagotchiId);
+        
+        // 서버에서 받은 타마고치 상태를 JSON으로 반환
+        return tamagotchiDto;
+    }
+    
     // 새로운 다마고치 등록 화면
     @GetMapping("/createTamagotchi.do")
     public String createTamagotchiForm() {

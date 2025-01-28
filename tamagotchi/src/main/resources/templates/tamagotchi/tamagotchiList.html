@@ -87,7 +87,7 @@
 		        <!-- 하루 건너뛰기 버튼 -->
 		        <form id="frm" method="post">
 		         	<input type="hidden" name="state" id="state">  <!-- state 값이 전달되도록 hidden 필드 추가 -->
-		            <button class="btn btn-day" id="btnDay" type="button" name="state" value="Day">하루 건너뛰기</button><!-- name="Day"  -->
+		            <button class="btn btn-day" id="btnDay" type="button" name="state" value="Day" title="다마고치의 하루는 30초 입니다.">하루 건너뛰기</button><!-- name="Day"  -->
 		        </form>
 		</div>	
     </div>
@@ -101,7 +101,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/js/tamagotchiList.js"></script>
-    	<script th:if="${alertMessage}" type="text/javascript">
+    <script th:if="${alertMessage}" type="text/javascript">
 	    alert('[[${alertMessage}]]'); <!-- 문자열을 제대로 escape 처리하여 alert에 출력 -->
 	</script>
 </body>
