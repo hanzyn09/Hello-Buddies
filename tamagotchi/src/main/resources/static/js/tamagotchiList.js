@@ -88,7 +88,7 @@ function searchTamagotchi() {
 	// 검색 결과가 없으면 안내 문구 표시
 	noDataRow.style.display = found ? "none" : "table-row"; // 검색 결과가 있으면 안내 문구 숨기고, 없으면 표시
 
-	// 타마고치 수 업데이트
+	// 버디 수 업데이트
 	updateActiveTamaCount();
 }
 
@@ -118,7 +118,7 @@ $(function() {
 		var hasData = Array.from(tamagotchiRows).some(row => row.style.display !== 'table-row' && row.id !== 'noDataRow');
 
 		if (!hasData) {
-			alertMessage = "현재 키우는 타마가 없습니다.<br>새로 입양해주세요.";
+			alertMessage = "현재 키우는 버디가 없습니다.<br>새로 입양해주세요.";
 			action = "error";
 			displayAlert(alertMessage, action);
 		} else {
@@ -138,7 +138,7 @@ $(function() {
 	});
 });
 
-// 타마고치 수 업데이트 함수
+// 버디 수 업데이트 함수
 function updateActiveTamaCount() {
 	var activeTamaCount = Array.from(document.querySelectorAll('#tamagotchiTable tbody tr'))
 		.filter(row => row.id !== 'noDataRow' && row.getAttribute('data-deleted') !== 'true')
@@ -153,7 +153,7 @@ function fetchTamagotchi() {
 		url: '/tamagotchi/fetchTamagotchi.do',
 		method: 'GET',
 		success: function(data) {
-			alertMessage = "하루가 경과했습니다!<br>타마들의 상태를 확인해주세요.";
+			alertMessage = "하루가 경과했습니다!<br>버디들의 상태를 확인해주세요.";
 			action = "info";
 			displayAlert(alertMessage, action);
 
@@ -168,7 +168,7 @@ function fetchTamagotchi() {
 // 테이블을 최신 데이터로 업데이트하는 함수
 function updateTable(data) {
     const tbody = document.getElementById('tamagotchiTableBody');
-    const noDataRow = document.getElementById('noDataRow');  // '조회된 다마고치가 없습니다.' 안내 문구
+    const noDataRow = document.getElementById('noDataRow');  // '조회된 버디가 없습니다.' 안내 문구
 
     // 'noDataRow'가 null인지 확인
     if (noDataRow) {
@@ -191,9 +191,9 @@ function updateTable(data) {
                     <td>${tamagotchi.tamagotchiId}</td>
                     <td>${tamagotchi.name}</td>
                     <td>Lv. ${tamagotchi.levelNumber}</td>
-                    <td style="color: ${tamagotchi.hunger >= 80 ? 'red' : 'black'}" title="배고픔은 0%가 최고의 상태입니다." id="hunger">${tamagotchi.hunger}%</td>
-                    <td style="color: ${tamagotchi.fatigue >= 80 ? 'red' : 'black'}" title="피로도는 0%가 최고의 상태입니다." id="fatigue">${tamagotchi.fatigue}%</td>
-                    <td style="color: ${tamagotchi.happiness <= 30 ? 'red' : 'black'}" title="행복도는 100%가 최고의 상태입니다." id="happiness">${tamagotchi.happiness}%</td>
+                    <td style="color: ${tamagotchi.hunger >= 80 ? 'red' : 'black'}" title="Hunger(은)는 0%가 최고의 상태입니다." id="hunger">${tamagotchi.hunger}%</td>
+                    <td style="color: ${tamagotchi.fatigue >= 80 ? 'red' : 'black'}" title="Fatigue(은)는 0%가 최고의 상태입니다." id="fatigue">${tamagotchi.fatigue}%</td>
+                    <td style="color: ${tamagotchi.happiness <= 30 ? 'red' : 'black'}" title="Happiness(은)는 100%가 최고의 상태입니다." id="happiness">${tamagotchi.happiness}%</td>
                     <td>
                         <span class="status ${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3 >= 16.6 ? 'active' : 'inactive'}">
                             <span class="${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3 >= 16.6 ? 'fas fa-smile-beam fa-2x' : 'fas fa-sad-tear fa-2x'}"></span>
@@ -207,7 +207,7 @@ function updateTable(data) {
             });
         }
 
-        // 타마고치 수 업데이트
+        // 버디 수 업데이트
         updateActiveTamaCount();
     } else {
         console.error("noDataRow element not found!");
@@ -220,7 +220,7 @@ $(document).ready(function() {
 	var noDataRow = document.getElementById('noDataRow');
 
 	if (noDataRow) {
-		// 데이터가 있으면 '조회된 다마고치가 없습니다.'를 숨기고, 없으면 보이게
+		// 데이터가 있으면 '조회된 버디가 없습니다.'를 숨기고, 없으면 보이게
 		var hasData = Array.from(tamagotchiRows).some(row => row.id !== 'noDataRow' && row.style.display !== 'none');
 
 		// 'noDataRow' 상태 변경
@@ -229,7 +229,7 @@ $(document).ready(function() {
 		console.error("noDataRow element not found during page load!");
 	}
 
-	// 타마고치 수 업데이트
+	// 버디 수 업데이트
 	updateActiveTamaCount();
 
 	// 데이터 30초마다 갱신

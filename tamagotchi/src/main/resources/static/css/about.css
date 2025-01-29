@@ -1,88 +1,101 @@
+/* 기본 색상 설정 */
+:root {
+	--primary-color: #6a4c9c; /* 보라색 계열 */
+	--accent-color: #FFE942; /* 노란색 계열 */
+	--button-hover-color: #8e44ad; /* 버튼 호버 색상 (진한 보라색) */
+	--button-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 버튼 그림자 */
+}
+
 /* 기본 스타일 */
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-    opacity: 0;
-    transition: opacity 1s ease-in-out; /* 부드럽게 fade-in */
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: #f8f9fa;
+	height: 100vh;
+	opacity: 0;
+	transition: opacity 1s ease-in-out; /* 부드럽게 fade-in */
 }
 
 body.loaded {
-    opacity: 1;
+	opacity: 1;
 }
 
-/* 컨테이너 */
+/* 컨테이너 스타일 */
 .container {
-    width: 80%;
-    margin: 50px auto;
-    padding: 40px;
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	width: 80%;
+	margin: 50px auto;
+	padding: 40px;
+	background-color: #fff;
+	border-radius: 15px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* 헤딩 */
+/* 헤딩 스타일 */
 h1 {
-    text-align: center;
-    font-size: 40px;
-    color: #6a4c9c; /* 보라색 계열 */
-    margin-bottom: 30px;
+	text-align: center;
+	font-size: 40px;
+	color: var(--primary-color);
+	margin-bottom: 50px;
 }
 
 h2 {
-    color: #5e3a8c;
-    font-size: 28px;
-    margin: 20px 0 10px;
+	color: #5e3a8c;
+	font-size: 28px;
+	margin: 20px 0 10px;
 }
 
 /* 본문 텍스트 */
 p {
-    font-size: 16px;
-    line-height: 1.6;
-    color: #555;
-    margin-bottom: 1px;
+	font-size: 16px;
+	line-height: 1.6;
+	color: #555;
+	margin-bottom: 1px;
 }
 
 /* 기능 리스트 */
 .feature-list {
-    list-style: none;
-    padding-left: 0;
+	list-style: none;
+	padding-left: 0;
 }
 
 .feature-list li {
-    font-size: 18px;
-    color: #7ed957;
-    margin-bottom: 10px;
+	font-size: 18px;
+	color: #7ed957;
+	margin-bottom: 10px;
 }
 
 .feature-list li i {
-    margin-right: 10px;
-    color: #f39c12;
+	margin-right: 10px;
+	color: #f39c12;
 }
 
 /* 버튼 스타일 */
 .btn-back {
-    background-color: #FFE942; /* 뒤로가기 버튼 배경색 */
-    color: #5e3a8c;
-    font-size: 16px;
-    padding: 10px 20px;
-    border-radius: 30px;
-    text-align: center;
-    display: inline-block;
-    margin: 0 auto;
-    text-decoration: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border: none;
+	background-color: var(--accent-color); /* 뒤로가기 버튼 배경색 */
+	color: #5e3a8c;
+	font-size: 16px;
+	padding: 10px 20px;
+	border-radius: 30px;
+	text-align: center;
+	display: inline-block;
+	margin: 0 auto;
+	text-decoration: none;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	border: none;
 }
 
 .btn-back:hover {
-    background-color: #D8C217;
-    color: white;
+	background-color: #D8C217;
+	color: white;
 }
 
 /* 버튼 감싸는 부모 요소 */
 .button-wrapper {
-    text-align: center;
-    margin-top: 10px;
+	text-align: center;
+	margin: 10px auto;
+}
+
+.c-partners {
+	font-size: 10px;
+	margin: 10px;
+	cursor: pointer;
 }

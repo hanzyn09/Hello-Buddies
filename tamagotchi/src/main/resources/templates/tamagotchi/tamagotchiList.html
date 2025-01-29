@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My-Tama-Friend</title>
+<title>Beastie Buddies</title>
 
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1 onclick="refreshPage()">My-Tama-Friend</h1>
+		<h1 onclick="refreshPage()">Beastie Buddies</h1>
 		<!-- 타이틀 클릭 시 새로고침 함수 호출 -->
 
 		<div class="search-container"
@@ -28,39 +28,39 @@
 		<table id="tamagotchiTable">
 			<thead>
 				<tr>
-					<th onclick="sortTable(0, 'number')">탄생 순서</th>
-					<th onclick="sortTable(1, 'string')">이름</th>
-					<th title="레벨" onclick="sortTable(2, 'number')"><i
+					<th onclick="sortTable(0, 'number')">Birth Order</th>
+					<th onclick="sortTable(1, 'string')">Name</th>
+					<th title="Level" onclick="sortTable(2, 'number')"><i
 						class="fas fa-star"></i></th>
-					<th title="배고픔" onclick="sortTable(3, 'number')"><i
+					<th title="Hunger" onclick="sortTable(3, 'number')"><i
 						class="fas fa-utensils icon"></i></th>
-					<th title="피로도" onclick="sortTable(4, 'number')"><i
+					<th title="Fatigue" onclick="sortTable(4, 'number')"><i
 						class="fas fa-bed icon"></i></th>
-					<th title="행복도" onclick="sortTable(5, 'number')"><i
+					<th title="Happiness" onclick="sortTable(5, 'number')"><i
 						class="fas fa-sun icon"></i></th>
 					<th
-						title="(100 - 배고픔) * 0.2 + (100 - 피로도) * 0.3 + 행복도 * 0.5) / 3, 평균값:16.6"
-						onclick="sortTable(6, 'string')">종합 지수</th>
-					<th title="상세보기를 통해 타마를 돌봐주세요!">상세보기</th>
+						title="(100 - Hunger) * 0.2 + (100 - Fatigue) * 0.3 + Happiness * 0.5) / 3, avg:16.6"
+						onclick="sortTable(6, 'string')">Condition</th>
+					<th title="Take Care of your Buddies!">Detail</th>
 				</tr>
 			</thead>
 			<tbody id="tamagotchiTableBody">
-				<!-- 타마고치 목록을 순회하며 출력 -->
+				<!-- 버디고치 목록을 순회하며 출력 -->
 				<tr th:each="tamagotchi, iterStat : ${tamagotchis}">
 					<td th:text="${tamagotchi.tamagotchiId}"></td>
 					<td th:text="${tamagotchi.name}"></td>
 					<td title="최고의 상태가 되면 진화합니다." id="levelNumber"
 						th:text="'Lv. ' + ${tamagotchi.levelNumber}"></td>
 
-					<td title="배고픔은 0%가 최고의 상태입니다." id="hunger"
+					<td title="Hunger(은)는 0%가 최고의 상태입니다." id="hunger"
 						th:text="${tamagotchi.hunger} + '%'"
 						th:attr="style='color: ' + (${tamagotchi.hunger} >= 80 ? 'red' : 'black')">
 					</td>
-					<td title="피로도는 0%가 최고의 상태입니다." id="fatigue"
+					<td title="Fatigue(은)는 0%가 최고의 상태입니다." id="fatigue"
 						th:text="${tamagotchi.fatigue} + '%'"
 						th:attr="style='color: ' + (${tamagotchi.fatigue} >= 80 ? 'red' : 'black')">
 					</td>
-					<td title="행복도는 100%가 최고의 상태입니다." id="happiness"
+					<td title="Happiness(은)는 100%가 최고의 상태입니다." id="happiness"
 						th:text="${tamagotchi.happiness} + '%'"
 						th:attr="style='color: ' + (${tamagotchi.happiness} <= 30 ? 'red' : 'black')">
 					</td>
@@ -76,12 +76,12 @@
 					<td><a
 						href="/tamagotchi/openTamagotchiDetail.do?tamagotchiId="
 						th:attrappend="href=${tamagotchi.tamagotchiId}"
-						class="btn btn-secondary">보살피기</a></td>
+						class="btn btn-secondary">Care</a></td>
 				</tr>
 				<tr id="noDataRow" style="display: table-row;">
 					<td colspan="8"
 						style="text-align: center; padding: 20px; font-size: 18px; color: #777;">
-						조회된 타마가 없습니다.</td>
+						조회된 버디가 없습니다.</td>
 				</tr>
 			</tbody>
 		</table>
@@ -89,13 +89,12 @@
 		<div
 			style="display: flex; align-items: center; justify-content: space-between;">
 			<!-- 새로 입양하기 버튼 -->
-			<a href="/tamagotchi/createTamagotchi.do" class="btn btn-primary">새로
-				입양하기</a>
+			<a href="/tamagotchi/createTamagotchi.do" class="btn btn-primary">Adopt</a>
 
-			<!-- 타마와 함께하는 시간 표시 텍스트 -->
+			<!-- 버디와 함께하는 시간 표시 텍스트 -->
 			<div class="responsibility-text" style="margin-left: 0;"
 				onclick="window.location.href='https://link.coupang.com/a/cb4hoF';">
-				나는 <span id="activeTamaCount" class="tama-count">0</span> 마리의 타마와
+				나는 <span id="activeTamaCount" class="tama-count">0</span> 마리의 버디와
 				소중한 시간을 함께하고 있어요.
 			</div>
 
@@ -104,15 +103,15 @@
 				<input type="hidden" name="state" id="state">
 				<!-- state 값이 전달되도록 hidden 필드 추가 -->
 				<button class="btn btn-day" id="btnDay" type="button" name="state"
-					value="Day" title="다마고치의 하루는 30초 입니다." aria-label="하루 건너뛰기">하루
-					건너뛰기</button>
+					value="Day" title="버디의 하루는 30초 입니다." aria-label="하루 건너뛰기">Skip
+					a Day</button>
 			</form>
 		</div>
 	</div>
 
 	<!-- 버튼을 감싸는 wrapper 추가 -->
 	<div class="btn-wrapper">
-		<a href="/index.html" class="btn-back">로비로 돌아가기</a>
+		<a href="/index.html" class="btn-back">Back</a>
 	</div>
 
 	<script
