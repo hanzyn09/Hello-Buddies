@@ -142,16 +142,16 @@ td {
 .btn {
     padding: 10px 20px;
     border-radius: 50px;
-    background-color: var(--secondary-color);
     color: white;
     font-size: 16px;
     text-decoration: none;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     border: none;
+    transition: background-color 0.3s, opacity 0.3s; /* 애니메이션 추가 */
 }
 
 .btn:hover {
-    background-color: var(--button-hover-color);
+    opacity: 0.9;
 }
 
 /* 주요 버튼 스타일 */

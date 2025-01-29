@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My-Tama-Friend</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/tamagotchiList.css">
 </head>
@@ -85,7 +85,8 @@
 		        <!-- 하루 건너뛰기 버튼 -->
 		        <form id="frm" method="post">
 		         	<input type="hidden" name="state" id="state">  <!-- state 값이 전달되도록 hidden 필드 추가 -->
-		            <button class="btn btn-day" id="btnDay" type="button" name="state" value="Day" title="다마고치의 하루는 30초 입니다.">하루 건너뛰기</button><!-- name="Day"  -->
+		            <button class="btn btn-day" id="btnDay" type="button" name="state" value="Day" 
+		            		title="다마고치의 하루는 30초 입니다." aria-label="하루 건너뛰기">하루 건너뛰기</button>
 		        </form>
 		</div>	
     </div>
