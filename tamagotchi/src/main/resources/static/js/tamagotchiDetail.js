@@ -105,4 +105,3 @@ function updateTable(data) {
 $(document).ready(function() {
 	setInterval(fetchTamagotchiDetail, 30000); // 30초마다 데이터 갱신
 });
-

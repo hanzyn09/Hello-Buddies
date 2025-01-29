@@ -55,6 +55,7 @@ table {
     margin: 20px 0;
     border-radius: 10px;
     overflow: hidden;
+    table-layout: auto;
 }
 
 th, td {
@@ -79,7 +80,9 @@ td {
     background-color: #faf1f9;
     border-bottom: 1px solid #ddd;
 }
-
+.tamagotchiTableBody{
+	table-layout: auto;
+}
 /* 상태 표시 */
 .status {
     font-weight: bold;
