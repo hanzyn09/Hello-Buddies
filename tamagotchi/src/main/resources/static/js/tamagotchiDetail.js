@@ -67,7 +67,7 @@ $(document).ready(function() {
                 $('.tamagotchi-status').attr('class', 'tamagotchi-status ' + statusClass);
 
                 // 상태 메시지 업데이트
-                const statusMessage = (averageStatus / 3 >= 16.6) ? '너무 행복해요!' : '슬퍼요, 도와주세요!';
+				const statusMessage = (averageStatus / 3 >= 16.6) ? "\"너무 행복해요!\"" : "\"슬퍼요, 도와주세요!\"";
                 $('.tamagotchi-status span').text(statusMessage);
             },
             error: function(error) {

@@ -89,19 +89,19 @@ public class TamagotchiServiceImpl implements TamagotchiService {
         int oldHunger = tamagotchiDto.getHunger();
         int oldFatigue = tamagotchiDto.getFatigue();
         int oldHappiness = tamagotchiDto.getHappiness();
-        String message = tamagotchiDto.getName();
+        String message = "";
 
         switch (action) {
             case "hunger":
-                message += "(은)는 먹이를 먹었습니다.";
+                message += tamagotchiDto.getName() + "(은)는 먹이를 먹었습니다.";
                 message = updateHunger(tamagotchiDtoTmp, oldLevelNumber, oldHunger, oldFatigue, oldHappiness, message);
                 break;
             case "sleep":
-                message += "(은)는 푹 잤습니다.";
+                message += tamagotchiDto.getName() + "(은)는 푹 잤습니다.";
                 message = updateSleep(tamagotchiDtoTmp, oldLevelNumber, oldHunger, oldFatigue, oldHappiness, message);
                 break;
             case "play":
-                message += "(은)는 신나게 놀았습니다.";
+                message += tamagotchiDto.getName() + "(은)는 신나게 놀았습니다.";
                 message = updatePlay(tamagotchiDtoTmp, oldLevelNumber, oldHunger, oldFatigue, oldHappiness, message);
                 break;
             case "day":

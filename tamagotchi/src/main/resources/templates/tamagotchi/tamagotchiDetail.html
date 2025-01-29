@@ -14,11 +14,19 @@
         <!-- 프로필 이미지 -->
         <div class="profile-section">
         	
-        	<div class="image-container">
-	        	<a th:href="@{/images/default-image.jpg}" download>
-				    <img th:src="@{/images/default-image.jpg}" alt="프로필 사진" class="profile-image">
+        	  <div class="image-container">
+		        <!-- 이미지가 등록되어 있을 경우 -->
+				<a th:if="${not #lists.isEmpty(tamagotchi.fileInfoList)}" 
+				   th:href="@{${tamagotchi.fileInfoList[0].imageUrl}}" download>
+				    <img th:src="@{${tamagotchi.fileInfoList[0].imageUrl}}" alt="프로필 사진" class="profile-image">
 				</a>
-             </div>
+
+		        <!-- 이미지가 등록되지 않았을 경우 -->
+		        <a th:if="${#lists.isEmpty(tamagotchi.fileInfoList)}" 
+		           th:href="@{/images/default-image.jpg}" download>
+		            <img th:src="@{/images/default-image.jpg}" alt="기본 프로필 사진" class="profile-image">
+		        </a>
+		    </div>
             <div class="tamagotchi-name">
                 <span th:text="${tamagotchi.name}"></span>
             </div>
@@ -129,9 +137,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="/js/tamagotchiDetail.js"></script>
-   	<script th:if="${alertMessage}" type="text/javascript">
+   	<script th:if="${not #strings.isEmpty(alertMessage)}" type="text/javascript">
 	    alert('[[${alertMessage}]]'); <!-- 문자열을 제대로 escape 처리하여 alert에 출력 -->
 	</script>
-
 </body>
 </html>

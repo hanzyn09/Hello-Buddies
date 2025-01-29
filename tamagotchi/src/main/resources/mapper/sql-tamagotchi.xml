@@ -61,13 +61,13 @@
     </delete>
     
     <select id="selectTamagotchiFileList" parameterType="int" resultType="tamagotchi.dto.TamagotchiFileDto">
-        select image_id, tamagotchi_id, original_file_name, format(round(file_size/1024), 0) as file_size, stored_file_path
+        select image_id, image_url, tamagotchi_id, original_file_name, format(round(file_size/1024), 0) as file_size, stored_file_path
           from tamagotchis_F
          where tamagotchi_id = #{tamagotchiId}
     </select>
     
     <select id="selectTamagotchiFileInfo" parameterType="map" resultType="tamagotchi.dto.TamagotchiFileDto">
-        select image_id, original_file_name, stored_file_path, file_size
+        select image_id, image_url, original_file_name, stored_file_path, file_size
           from tamagotchis_F
          where image_id = #{imageId}
            and tamagotchi_id = #{tamagotchiId}
