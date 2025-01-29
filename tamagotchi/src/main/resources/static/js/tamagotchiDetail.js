@@ -1,3 +1,5 @@
+var alertMessage = "";
+var action = "";
 
 $(function() {
 	// 공통 폼 제출 함수
@@ -10,7 +12,10 @@ $(function() {
 		if (stateInput) {
 			stateInput.value = state;  // state 필드에 값 설정
 		} else {
-			alert("폼에 'state' 필드가 없습니다.");  // state 필드가 없으면 경고
+			alertMessage= "폼에 'state' 필드가 없습니다."
+			action = "error";
+			
+			displayAlert(alertMessage, action); //alert 
 		}
 
 		frm.submit();  // 폼 제출
@@ -33,10 +38,24 @@ $(function() {
 	});
 
 	$("#btnDelete").on("click", function(event) {
-		event.preventDefault();  // 기본 동작 방지
-		alert("다마고치를 입양 보냅니다.");  // 사용자에게 메시지 표시
-		submitForm("updateState.do", "delete");  // 'delete' 값 전달
+	    event.preventDefault();  // 기본 동작 방지
+		
+		alertMessage= '다마고치를 입양 보냅니다.<br><button id="confirmAdopt" class="btn btn-success">확인</button><button id="cancelAdopt" class="btn btn-danger">취소</button>';
+		action = "info";				
+		displayAlert(alertMessage, action); //alert
+
+	    // 확인 버튼 클릭 시 폼 제출
+	    $("#confirmAdopt").on("click", function() {
+	        submitForm("updateState.do", "delete");  // 'delete' 값 전달
+	        toastr.clear(); // 알림창 닫기
+	    });
+
+	    // 취소 버튼 클릭 시 알림 창 닫기
+	    $("#cancelAdopt").on("click", function() {
+	        toastr.clear(); // 알림창 닫기
+	    });
 	});
+
 
 	// 목록 페이지로 이동
 	$("#btnList").on("click", function(event) {
@@ -76,16 +95,11 @@ $(document).ready(function() {
         });
     }
 
-    // 일정 시간마다 알림 띄우기
-    let alertShown = false;  // 알림이 이미 한번 띄워졌는지 여부
-
     setInterval(function() {
-        if (!alertShown) {
-            alert("하루가 경과했습니다! 타마고치 상태를 확인해주세요.");
-            alertShown = true;  // 알림을 한 번만 띄우도록 설정
-        }
-
-        // 타마고치 상태를 30초마다 갱신
+		alertMessage = "하루가 경과했습니다!<br>타마고치 상태를 확인해주세요.";
+		action = "info";
+		displayAlert(alertMessage, action); //alert
+		
         getTamagotchiStatus();
     }, 30000);  // 30초마다 실행 (30000ms)
 

@@ -7,6 +7,7 @@
    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/tamagotchiDetail.css">
 </head>
 <body>
@@ -43,13 +44,6 @@
             <table class="table table-bordered" id="tamagotchiTable">
 		    <tbody>
 		        <tr>
-		            <td style="text-align: right;"><strong><i class="fas fa-calendar-alt icon"></i>탄생 일시</strong></td>
-		            <td style="text-align: center;">
-		                <span th:text="${tamagotchi.createDt}"></span>
-		                (나의 <span th:text="${tamagotchi.tamagotchiId}"></span>번째 타마)
-		            </td>
-		        </tr>
-		        <tr>
 		            <td title="레벨" style="text-align: right;"><strong><i class="fas fa-star icon"></i>레벨</strong></td>
 		            <td style="text-align: center;">
 		            	<span id="levelNumber" title="최고의 상태가 되면 진화합니다." 
@@ -84,22 +78,11 @@
 						 </span>
 					</td>
 		        </tr>
-		        <tr>
-		            <td style="text-align: right;"><strong><i class="fas fa-user-circle icon"></i>프로필 사진</strong></td>
+		         <tr>
+		            <td style="text-align: right;"><strong><i class="fas fa-calendar-alt icon"></i>탄생 일시</strong></td>
 		            <td style="text-align: center;">
-		                <div class="file_list">
-		                    <!-- 파일 리스트가 있을 경우 -->
-		                    <div th:if="${not #lists.isEmpty(tamagotchi.fileInfoList)}">
-		                        <a th:each="file : ${tamagotchi.fileInfoList}" 
-		                           th:text="|${file.originalFileName} (${file.fileSize}kb)|"
-		                           th:href="@{/tamagotchi/downloadTamagotchiFile.do(imageId=${file.imageId}, tamagotchiId=${file.tamagotchiId})}"></a>
-		                    </div>
-		                
-		                    <!-- 파일 리스트가 없을 경우 -->
-		                    <div th:if="${#lists.isEmpty(tamagotchi.fileInfoList)}">
-		                          <p style="margin: 0; padding: 0;">등록하지 않았습니다.</p>
-		                    </div>
-		                </div>
+		                <span th:text="${tamagotchi.createDt}"></span>
+		                (나의 <span th:text="${tamagotchi.tamagotchiId}"></span>번째 타마)
 		            </td>
 		        </tr>
 		    </tbody>
@@ -122,7 +105,7 @@
 			<div class="text-center" >
 			    <!-- 사용자 메시지 표시용 div -->
 				<div class="alert-message"></div>
-				<button class="btn btn-danger w-100" id="btnDelete" type="button" name="state" value="delete" aria-label="입양 보내기">입양 보내기</button>
+				<button class="btn btn-delete w-100" id="btnDelete" type="button" name="state" value="delete" aria-label="입양 보내기">입양 보내기</button>
 			</div>
 		</form>
     </div>
@@ -132,13 +115,17 @@
     	<button type="button" class="btn-back" id="btnList" name="list" value="list">목록으로 가기</button>
     </div> 
     
-   
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="/js/tamagotchiDetail.js"></script>
-   	<script th:if="${not #strings.isEmpty(alertMessage)}" type="text/javascript">
-	    alert('[[${alertMessage}]]'); <!-- 문자열을 제대로 escape 처리하여 alert에 출력 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="/js/alert.js"></script>
+    <script th:if="${not #strings.isEmpty(alertMessage)}" type="text/javascript">
+	    var alertMessage = '[[${alertMessage}]]';
+	    var action = "success";
+	   
+	    displayAlert(alertMessage, action);  // alertMessage가 있을 때만 alert
 	</script>
+	<script src="/js/tamagotchiDetail.js"></script>
 </body>
 </html>

@@ -128,7 +128,7 @@ public class TamagotchiServiceImpl implements TamagotchiService {
             tamagotchiDtoTmp.setFatigue(50);
             tamagotchiDtoTmp.setHunger(50);
             tamagotchiDtoTmp.setHappiness(50);
-            message += " 그리고 진화했습니다!";
+            message += "그리고 진화했습니다!";
         }
         return message;
     }

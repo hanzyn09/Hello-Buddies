@@ -7,10 +7,8 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/tamagotchiList.css">
-    <style>
- 
-    </style>
 </head>
 <body>
     <div class="container">
@@ -100,9 +98,14 @@
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <script src="/js/tamagotchiList.js"></script>
-    <script th:if="${not #strings.isEmpty(alertMessage)}" type="text/javascript">
-	    alert('[[${alertMessage}]]'); <!-- 문자열을 제대로 escape 처리하여 alert에 출력 -->
+     <script th:if="${not #strings.isEmpty(alertMessage)}" type="text/javascript">
+	    var alertMessage = '[[${alertMessage}]]';
+	    window.onload = function() {
+	        displayAlert(alertMessage);  // alertMessage가 있을 때만 displayAlert 함수 호출
+	    };
 	</script>
+	<script src="/js/alert.js"></script>
 </body>
 </html>

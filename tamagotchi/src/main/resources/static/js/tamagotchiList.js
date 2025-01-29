@@ -223,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function() {
 $(document).ready(function() {
     // 30초마다 "하루가 경과했습니다!" 알림을 띄우고 화면을 새로 고침
     setInterval(function() {
-        alert("하루가 경과했습니다! 타마고치 상태를 확인해주세요.");
+        toastr.info("하루가 경과했습니다! 타마고치 상태를 확인해주세요.");
         location.reload();  // 페이지 새로 고침
     }, 30000);  // 30000ms = 60초마다 호출
 });
