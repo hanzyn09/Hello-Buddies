@@ -213,6 +213,7 @@ td {
     color: var(--secondary-color);
     margin: 10px 0;
     letter-spacing: 1px;
+    cursor: pointer;
 }
 
 .tama-count {
