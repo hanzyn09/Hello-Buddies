@@ -241,14 +241,57 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 });
 
-$(document).ready(function() {
-	// 30초마다 "하루가 경과했습니다!" 알림을 띄우고 화면을 새로 고침
-	setInterval(function() {
-		toastr.info("하루가 경과했습니다!<br>타마들의 상태를 확인해주세요.");
+// 데이터를 30초마다 갱신하는 함수
+function fetchTamagotchi() {
+	$.ajax({
+		url: '/tamagotchi/fetchTamagotchi.do', // 서버에서 최신 데이터를 가져오는 API URL
+		method: 'GET',
+		success: function(data) {
+			alertMessage = "하루가 경과했습니다!<br>타마들의 상태를 확인해주세요."
+			action = "info";
+			displayAlert(alertMessage, action); //alert 
 
-		// 2초 후에 페이지 새로 고침
-		setTimeout(function() {
-			location.reload();  // 페이지 새로 고침
-		}, 2000);  // 2000ms = 2초 후 리로드
-	}, 30000);  // 30000ms = 30초마다 호출
+			updateTable(data);
+		},
+		error: function() {
+			console.log("데이터를 가져오는 데 실패했습니다.");
+		}
+	});
+}
+
+// 테이블을 최신 데이터로 업데이트하는 함수
+function updateTable(data) {
+	// 테이블의 tbody를 선택
+	const tbody = document.getElementById('tamagotchiTableBody');
+
+	// 기존 데이터를 지움
+	tbody.innerHTML = '';
+
+	// 새로 받은 데이터를 테이블에 추가
+	data.forEach(tamagotchi => {
+		const row = document.createElement('tr');
+
+		row.innerHTML = `
+            <td>${tamagotchi.tamagotchiId}</td>
+            <td>${tamagotchi.name}</td>
+            <td id="levelNumber">Lv. ${tamagotchi.levelNumber}</td>
+            <td id="hunger" style="color: ${tamagotchi.hunger >= 80 ? 'red' : 'black'}">${tamagotchi.hunger}%</td>
+            <td id="fatigue" style="color: ${tamagotchi.fatigue >= 80 ? 'red' : 'black'}">${tamagotchi.fatigue}%</td>
+            <td id="happiness" style="color: ${tamagotchi.happiness <= 30 ? 'red' : 'black'}">${tamagotchi.happiness}%</td>
+            <td>
+                <span class="status ${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3 >= 16.6 ? 'active' : 'inactive'}">
+                    <span class="${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3 >= 16.6 ? 'fas fa-smile-beam fa-2x' : 'fas fa-sad-tear fa-2x'}"></span>
+                </span>
+            </td>
+            <td>
+                <a href="/tamagotchi/openTamagotchiDetail.do?tamagotchiId=${tamagotchi.tamagotchiId}" class="btn btn-secondary">보살피기</a>
+            </td>
+        `;
+		tbody.appendChild(row);
+	});
+}
+
+// 페이지 로드 시 최초 데이터를 가져오고, 30초마다 갱신
+$(document).ready(function() {
+	setInterval(fetchTamagotchi, 30000); // 30초마다 데이터 갱신
 });
