@@ -6,6 +6,11 @@ body {
     height: 100vh;
     display: flex;
     flex-direction: column;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* 부드럽게 fade-in */
+}
+body.loaded {
+    opacity: 1;
 }
 
 /* 전체 컨테이너 스타일 */

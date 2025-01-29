@@ -40,7 +40,7 @@ $(function() {
 	$("#btnDelete").on("click", function(event) {
 	    event.preventDefault();  // 기본 동작 방지
 		
-		alertMessage= '다마고치를 입양 보냅니다.<br><button id="confirmAdopt" class="btn btn-success">확인</button><button id="cancelAdopt" class="btn btn-danger">취소</button>';
+		alertMessage= '입양 보내시겠습니까?<br><button id="confirmAdopt" class="btn btn-success">확인</button><button id="cancelAdopt" class="btn btn-danger">취소</button>';
 		action = "info";				
 		displayAlert(alertMessage, action); //alert
 
@@ -96,7 +96,7 @@ $(document).ready(function() {
     }
 
     setInterval(function() {
-		alertMessage = "하루가 경과했습니다!<br>타마고치 상태를 확인해주세요.";
+		alertMessage = "하루가 경과했습니다!<br>타마의 상태를 확인해주세요.";
 		action = "info";
 		displayAlert(alertMessage, action); //alert
 		

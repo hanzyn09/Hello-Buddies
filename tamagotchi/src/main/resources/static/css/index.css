@@ -11,6 +11,12 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f8f9fa;
     text-align: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out; /* 부드럽게 fade-in */
+}
+
+body.loaded {
+    opacity: 1;
 }
 
 /* 컨테이너 스타일 */

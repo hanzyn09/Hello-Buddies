@@ -42,7 +42,9 @@ public class TamagotchiServiceImpl implements TamagotchiService {
     }
 
     @Override
-    public void createTamagotchi(String name, MultipartHttpServletRequest request) {
+    public String createTamagotchi(String name, MultipartHttpServletRequest request) {
+    	String message = "";
+    	
         TamagotchiDto tamagotchiDto = new TamagotchiDto();
         tamagotchiDto.setName(name);
         tamagotchiDto.setLevelNumber(1);
@@ -59,6 +61,9 @@ public class TamagotchiServiceImpl implements TamagotchiService {
         } catch (Exception e) {
             log.error(e.getMessage());
         }
+        
+        message = tamagotchiDto.getName() + "(을)를 데려왔습니다!";
+        return message;
     }
 
     @Override
@@ -194,7 +199,7 @@ public class TamagotchiServiceImpl implements TamagotchiService {
     @Override
     public String deleteTamagotchi(int tamagotchiId) {
         tamagochiMapper.deleteTamagotchi(tamagotchiId);
-        return "다마고치가 입양갔습니다.";
+        return "입양이 완료되었습니다.";
     }
 
     @Override

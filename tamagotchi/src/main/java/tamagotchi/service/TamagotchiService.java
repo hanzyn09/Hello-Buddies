@@ -11,7 +11,7 @@ public interface TamagotchiService {
 
 	List<TamagotchiDto> selectTamagotchiList();
 
-	void createTamagotchi(String name, MultipartHttpServletRequest request);
+	String createTamagotchi(String name, MultipartHttpServletRequest request);
 
 	TamagotchiDto selectTamagotchiDetail(int tamagotchiId);
 	

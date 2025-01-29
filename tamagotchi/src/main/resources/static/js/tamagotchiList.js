@@ -1,3 +1,6 @@
+var alertMessage = "";
+var action = "";
+
 // 타이틀 클릭 시 현재 페이지 새로 고침
 function refreshPage() {
 	location.reload(); // 페이지 새로 고침
@@ -111,6 +114,7 @@ function searchTamagotchi() {
 	updateActiveTamaCount();
 }
 
+
 $(function() {
 	// 공통 폼 제출 함수
 	function submitForm(action, state) {
@@ -122,16 +126,19 @@ $(function() {
 		if (stateInput) {
 			stateInput.value = state;  // state 필드에 값 설정
 		} else {
-			alert("폼에 'state' 필드가 없습니다.");  // state 필드가 없으면 경고
+			alertMessage = "폼에 'state' 필드가 없습니다."
+			action = "error";
+
+			displayAlert(alertMessage, action); //alert 
 		}
 
 		frm.submit();  // 폼 제출
 	}
-	
+
 	// 하루 건너뛰기 버튼 클릭 시
 	$("#btnDay").on("click", function(event) {
 		event.preventDefault(); // 기본 동작 방지
-	
+
 		// 타마고치가 있는지 확인
 		var tamagotchiRows = document.getElementById("tamagotchiTableBody").getElementsByTagName("tr");
 		var hasData = false;
@@ -142,14 +149,28 @@ $(function() {
 				break;
 			}
 		}
-	
+
 		// 데이터가 없으면 경고 메시지 표시하고 동작 안 함
 		if (!hasData) {
-			alert("현재 키우는 다마고치가 없습니다. 다마고치를 추가해주세요.");
+			alertMessage = "현재 키우는 타마가 없습니다.<br>새로 입양해주세요.";
+			action = "error";
+
+			displayAlert(alertMessage, action); //alert 
 		} else {
-			alert("하루 건너뛰기 버튼을 클릭했습니다. 다마고치 상태가 변화합니다.");
-			let frm = $("#frm")[0];
-			submitForm("updateDate.do", "day");  // 'day' 값 전달
+			alertMessage = '하루를 건너뜁니다.<br><button id="confirmAdopt" class="btn btn-success">확인</button><button id="cancelAdopt" class="btn btn-danger">취소</button>';
+			action = "info";
+			displayAlert(alertMessage, action); //alert
+
+			// 확인 버튼 클릭 시 폼 제출
+			$("#confirmAdopt").on("click", function() {
+				submitForm("updateDate.do", "day");  // 'day' 값 전달
+				toastr.clear(); // 알림창 닫기
+			});
+
+			// 취소 버튼 클릭 시 알림 창 닫기
+			$("#cancelAdopt").on("click", function() {
+				toastr.clear(); // 알림창 닫기
+			});
 		}
 	});
 });
@@ -163,19 +184,19 @@ document.addEventListener("DOMContentLoaded", function() {
 	// 데이터가 없다면 안내 문구를 보이게
 	var hasData = false;
 	for (var i = 0; i < tamagotchiRows.length; i++) {
-	    // 데이터 행이 하나라도 있으면 hasData를 true로 설정
-	    if (tamagotchiRows[i].style.display !== 'none' && tamagotchiRows[i].id !== 'noDataRow') {
-	        hasData = true;
-	        break;
-	    }
+		// 데이터 행이 하나라도 있으면 hasData를 true로 설정
+		if (tamagotchiRows[i].style.display !== 'none' && tamagotchiRows[i].id !== 'noDataRow') {
+			hasData = true;
+			break;
+		}
 	}
 
 	if (hasData) {
-	    noDataRow.style.display = "none";  // 데이터가 있으면 안내 문구 숨기기
+		noDataRow.style.display = "none";  // 데이터가 있으면 안내 문구 숨기기
 	} else {
-	    noDataRow.style.display = "";  // 데이터가 없으면 안내 문구 표시
+		noDataRow.style.display = "";  // 데이터가 없으면 안내 문구 표시
 	}
-	
+
 	updateActiveTamaCount(); // 페이지 로드 시 타마고치 수 업데이트
 });
 
@@ -221,9 +242,13 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 $(document).ready(function() {
-    // 30초마다 "하루가 경과했습니다!" 알림을 띄우고 화면을 새로 고침
-    setInterval(function() {
-        toastr.info("하루가 경과했습니다! 타마고치 상태를 확인해주세요.");
-        location.reload();  // 페이지 새로 고침
-    }, 30000);  // 30000ms = 60초마다 호출
+	// 30초마다 "하루가 경과했습니다!" 알림을 띄우고 화면을 새로 고침
+	setInterval(function() {
+		toastr.info("하루가 경과했습니다!<br>타마들의 상태를 확인해주세요.");
+
+		// 2초 후에 페이지 새로 고침
+		setTimeout(function() {
+			location.reload();  // 페이지 새로 고침
+		}, 2000);  // 2000ms = 2초 후 리로드
+	}, 30000);  // 30000ms = 30초마다 호출
 });

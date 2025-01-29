@@ -65,8 +65,9 @@ public class TamagotchiController {
 
     // 다마고치 등록 처리
     @PostMapping("/createTamagotchi.do")
-    public String createTamagotchi(@RequestParam("name") String name, MultipartHttpServletRequest request) throws Exception {
-        tamagotchiService.createTamagotchi(name, request);
+    public String createTamagotchi(@RequestParam("name") String name, MultipartHttpServletRequest request, RedirectAttributes redirectAttributes) throws Exception {
+    	String message = tamagotchiService.createTamagotchi(name, request);
+        redirectAttributes.addFlashAttribute("alertMessage", message);
         return "redirect:/tamagotchi/openTamagotchiList.do";  // 다마고치 목록 페이지로 리다이렉트
     }
 
@@ -103,12 +104,12 @@ public class TamagotchiController {
                     break;
                 case "delete":
                 	message = tamagotchiService.deleteTamagotchi(tamagotchiId);
+                	redirectAttributes.addFlashAttribute("alertMessage", message);
                     return "redirect:/tamagotchi/openTamagotchiList.do";  // 다마고치 목록 페이지로 리다이렉트
                 default:
                     throw new IllegalArgumentException("Invalid state: " + state);  // 잘못된 상태일 경우 예외 던짐
             }
             
-            // 리다이렉트할 때 알림 메시지 전달
             redirectAttributes.addFlashAttribute("alertMessage", message);
             
         } catch (IllegalArgumentException e) {
