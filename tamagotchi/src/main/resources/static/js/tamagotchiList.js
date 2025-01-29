@@ -1,11 +1,6 @@
 var alertMessage = "";
 var action = "";
 
-// 타이틀 클릭 시 현재 페이지 새로 고침
-function refreshPage() {
-	location.reload(); // 페이지 새로 고침
-}
-
 // 각 열의 정렬 상태를 관리하는 객체
 var sortDirections = {
 	0: 'asc',
@@ -14,6 +9,11 @@ var sortDirections = {
 	3: 'asc',
 	4: 'asc'
 };
+
+// 타이틀 클릭 시 현재 페이지 새로 고침
+function refreshPage() {
+	location.reload(); // 페이지 새로 고침
+}
 
 // 테이블 정렬
 function sortTable(columnIndex) {
