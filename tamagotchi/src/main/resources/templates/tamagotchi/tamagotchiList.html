@@ -22,7 +22,7 @@
 		<div class="search-container"
 			style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
 			<input type="text" id="searchInput" class="search-input"
-				placeholder="이름 검색..." onkeyup="searchTamagotchi()">
+				placeholder="이름 검색..." onkeyup="searchTamagotchi()" maxlength="50">
 		</div>
 
 		<table id="tamagotchiTable">
@@ -80,7 +80,7 @@
 				</tr>
 				<tr id="noDataRow" style="display: table-row;">
 					<td colspan="8" style="text-align: center; padding: 20px; font-size: 18px; color: #777;">
-						조회된 다마고치가 없습니다.</td>
+						조회된 타마가 없습니다.</td>
 				</tr>
 			</tbody>
 		</table>

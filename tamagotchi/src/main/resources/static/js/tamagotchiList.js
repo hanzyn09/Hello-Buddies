@@ -63,33 +63,33 @@ function sortTable(columnIndex) {
 
 // 이름 검색 기능
 function searchTamagotchi() {
-    var input = document.getElementById('searchInput');
-    var filter = input.value.toLowerCase();
-    var table = document.getElementById('tamagotchiTable');
-    var rows = table.getElementsByTagName('tr');
-    var noDataRow = document.getElementById('noDataRow'); // 안내 문구
+	var input = document.getElementById('searchInput');
+	var filter = input.value.toLowerCase();
+	var table = document.getElementById('tamagotchiTable');
+	var rows = table.getElementsByTagName('tr');
+	var noDataRow = document.getElementById('noDataRow'); // 안내 문구
 
-    var found = false;
+	var found = false;
 
-    for (var i = 1; i < rows.length; i++) {
-        var td = rows[i].getElementsByTagName('td')[1]; // 이름 열
-        if (td) {
-            var txtValue = td.textContent || td.innerText;
-            // 검색어에 맞는 이름을 찾으면 해당 행을 표시하고, 아니면 숨깁니다.
-            if (txtValue.toLowerCase().includes(filter)) {
-                rows[i].style.display = "";  // 검색어가 포함된 경우 표시
-                found = true;
-            } else {
-                rows[i].style.display = "none";  // 검색어가 포함되지 않은 경우 숨김
-            }
-        }
-    }
+	for (var i = 1; i < rows.length; i++) {
+		var td = rows[i].getElementsByTagName('td')[1]; // 이름 열
+		if (td) {
+			var txtValue = td.textContent || td.innerText;
+			// 검색어에 맞는 이름을 찾으면 해당 행을 표시하고, 아니면 숨깁니다.
+			if (txtValue.toLowerCase().includes(filter)) {
+				rows[i].style.display = "";  // 검색어가 포함된 경우 표시
+				found = true;
+			} else {
+				rows[i].style.display = "none";  // 검색어가 포함되지 않은 경우 숨김
+			}
+		}
+	}
 
-    // 검색 결과가 없으면 안내 문구 표시
-    noDataRow.style.display = found ? "none" : "table-row"; // 검색 결과가 있으면 안내 문구 숨기고, 없으면 표시
+	// 검색 결과가 없으면 안내 문구 표시
+	noDataRow.style.display = found ? "none" : "table-row"; // 검색 결과가 있으면 안내 문구 숨기고, 없으면 표시
 
-    // 타마고치 수 업데이트
-    updateActiveTamaCount();
+	// 타마고치 수 업데이트
+	updateActiveTamaCount();
 }
 
 // 공통 폼 제출 함수
@@ -147,7 +147,7 @@ function updateActiveTamaCount() {
 	document.getElementById('activeTamaCount').textContent = activeTamaCount;
 }
 
-// 데이터를 10초마다 갱신하는 함수
+// 데이터를 30초마다 갱신하는 함수
 function fetchTamagotchi() {
 	$.ajax({
 		url: '/tamagotchi/fetchTamagotchi.do',
@@ -167,23 +167,27 @@ function fetchTamagotchi() {
 
 // 테이블을 최신 데이터로 업데이트하는 함수
 function updateTable(data) {
-	const tbody = document.getElementById('tamagotchiTableBody');
-	const noDataRow = document.getElementById('noDataRow');  // '조회된 다마고치가 없습니다.' 안내 문구
+    const tbody = document.getElementById('tamagotchiTableBody');
+    const noDataRow = document.getElementById('noDataRow');  // '조회된 다마고치가 없습니다.' 안내 문구
 
-	// 기존 데이터를 지움
-	tbody.innerHTML = '';
+    // 'noDataRow'가 null인지 확인
+    if (noDataRow) {
+        // 기존 데이터 지우기 (noDataRow를 제외한 나머지 행들 삭제)
+        Array.from(tbody.getElementsByTagName('tr')).forEach(row => {
+            if (row !== noDataRow) {
+                tbody.removeChild(row);
+            }
+        });
 
-	// 'noDataRow'가 null인지 확인
-	if (noDataRow) {
-		// 데이터가 없거나 빈 배열인 경우 안내 문구 표시
-		if (!data || (Array.isArray(data) && data.length === 0)) {
-			noDataRow.style.display = "block";  // 데이터가 없으면 안내 문구 표시
-		} else {
-			noDataRow.style.display = "table-row"; // 데이터가 있으면 안내 문구 숨기기
-			// 새로 받은 데이터를 테이블에 추가
-			data.forEach(tamagotchi => {
-				const row = document.createElement('tr');
-				row.innerHTML = `
+        // 데이터가 없거나 빈 배열인 경우 안내 문구 표시
+        if (!data || (Array.isArray(data) && data.length === 0)) {
+            noDataRow.style.display = "table-row";  // 데이터가 없으면 안내 문구 표시
+        } else {
+            noDataRow.style.display = "none"; // 데이터가 있으면 안내 문구 숨기기
+            // 새로 받은 데이터를 테이블에 추가
+            data.forEach(tamagotchi => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
                     <td>${tamagotchi.tamagotchiId}</td>
                     <td>${tamagotchi.name}</td>
                     <td>Lv. ${tamagotchi.levelNumber}</td>
@@ -199,31 +203,35 @@ function updateTable(data) {
                         <a href="/tamagotchi/openTamagotchiDetail.do?tamagotchiId=${tamagotchi.tamagotchiId}" class="btn btn-secondary">보살피기</a>
                     </td>
                 `;
-				tbody.appendChild(row);
-			});
-		}
+                tbody.appendChild(row);
+            });
+        }
 
-		// 타마고치 수 업데이트
-		updateActiveTamaCount();
-	} else {
-		console.error("noDataRow element not found!");
-	}
+        // 타마고치 수 업데이트
+        updateActiveTamaCount();
+    } else {
+        console.error("noDataRow element not found!");
+    }
 }
 
 $(document).ready(function() {
-    // 페이지 로드 시 테이블의 데이터 상태를 확인
-    var tamagotchiRows = document.getElementById("tamagotchiTableBody").getElementsByTagName("tr");
-    var noDataRow = document.getElementById('noDataRow');
-    
-    // 데이터가 있으면 '조회된 다마고치가 없습니다.'를 숨기고, 없으면 보이게
-    var hasData = Array.from(tamagotchiRows).some(row => row.id !== 'noDataRow' && row.style.display !== 'none');
-    
-    // 'noDataRow' 상태 변경
-    noDataRow.style.display = hasData ? "none" : "table-row";
-    
-    // 타마고치 수 업데이트
-    updateActiveTamaCount();
-    
-    // 데이터 30초마다 갱신
-    setInterval(fetchTamagotchi, 30000); // 30초마다 데이터 갱신
+	// 페이지 로드 시 테이블의 데이터 상태를 확인
+	var tamagotchiRows = document.getElementById("tamagotchiTableBody").getElementsByTagName("tr");
+	var noDataRow = document.getElementById('noDataRow');
+
+	if (noDataRow) {
+		// 데이터가 있으면 '조회된 다마고치가 없습니다.'를 숨기고, 없으면 보이게
+		var hasData = Array.from(tamagotchiRows).some(row => row.id !== 'noDataRow' && row.style.display !== 'none');
+
+		// 'noDataRow' 상태 변경
+		noDataRow.style.display = hasData ? "none" : "table-row";
+	} else {
+		console.error("noDataRow element not found during page load!");
+	}
+
+	// 타마고치 수 업데이트
+	updateActiveTamaCount();
+
+	// 데이터 30초마다 갱신
+	setInterval(fetchTamagotchi, 30000); // 30초마다 데이터 갱신
 });
