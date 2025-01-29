@@ -191,9 +191,9 @@ function updateTable(data) {
                     <td>${tamagotchi.tamagotchiId}</td>
                     <td>${tamagotchi.name}</td>
                     <td>Lv. ${tamagotchi.levelNumber}</td>
-                    <td style="color: ${tamagotchi.hunger >= 80 ? 'red' : 'black'}">${tamagotchi.hunger}%</td>
-                    <td style="color: ${tamagotchi.fatigue >= 80 ? 'red' : 'black'}">${tamagotchi.fatigue}%</td>
-                    <td style="color: ${tamagotchi.happiness <= 30 ? 'red' : 'black'}">${tamagotchi.happiness}%</td>
+                    <td style="color: ${tamagotchi.hunger >= 80 ? 'red' : 'black'}" title="배고픔은 0%가 최고의 상태입니다." id="hunger">${tamagotchi.hunger}%</td>
+                    <td style="color: ${tamagotchi.fatigue >= 80 ? 'red' : 'black'}" title="피로도는 0%가 최고의 상태입니다." id="fatigue">${tamagotchi.fatigue}%</td>
+                    <td style="color: ${tamagotchi.happiness <= 30 ? 'red' : 'black'}" title="행복도는 100%가 최고의 상태입니다." id="happiness">${tamagotchi.happiness}%</td>
                     <td>
                         <span class="status ${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3 >= 16.6 ? 'active' : 'inactive'}">
                             <span class="${((100 - tamagotchi.hunger) * 0.2 + (100 - tamagotchi.fatigue) * 0.3 + tamagotchi.happiness * 0.5) / 3 >= 16.6 ? 'fas fa-smile-beam fa-2x' : 'fas fa-sad-tear fa-2x'}"></span>
