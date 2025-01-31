@@ -45,7 +45,7 @@
 				</tr>
 			</thead>
 			<tbody id="tamagotchiTableBody">
-				<!-- 버디고치 목록을 순회하며 출력 -->
+				<!-- 버디 목록을 순회하며 출력 -->
 				<tr th:each="tamagotchi, iterStat : ${tamagotchis}">
 					<td th:text="${tamagotchi.tamagotchiId}"></td>
 					<td th:text="${tamagotchi.name}"></td>
