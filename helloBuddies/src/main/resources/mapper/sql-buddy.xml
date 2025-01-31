@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.buddy.mapper.BuddyMapper">
+	<!-- 다마고치 전체 리스트 출력 -->
+    <select id="selectBuddyList" resultType="com.buddy.dto.BuddyDto">
+        select buddy_id, name, level_number, hunger, fatigue, happiness
+          from buddies_M
+         where deleted_yn = 'N'
+         order by buddy_id
+    </select>
+   
+   <!-- 다마고치 등록 -->
+    <insert id="insertBuddy" useGeneratedKeys="true" keyProperty="buddyId">
+        insert into buddies_M(name, level_number, hunger, fatigue, happiness, create_dt, update_dt)
+   		values (#{name}, #{levelNumber}, #{hunger}, #{fatigue}, #{happiness}, now(), now())
+    </insert>
+    
+    
+    <insert id="insertBuddyFileList">
+        insert into buddies_F 
+            (buddy_id, image_url, original_file_name, stored_file_path, file_size, create_dt, update_dt)
+        values 
+        <foreach collection="list" item="item" separator=",">
+            (#{item.buddyId}, #{item.imageUrl}, #{item.originalFileName}, #{item.storedFilePath}, #{item.fileSize}, now(), now())
+        </foreach>
+    </insert>
+    
+    <select id="selectBuddyDetail" parameterType="int" resultType="com.buddy.dto.BuddyDto">
+	    SELECT 
+		    m.buddy_id,
+		    m.level_number,
+		    m.name,
+		    m.hunger,
+		    m.fatigue,
+		    m.happiness,
+		    date_format(m.create_dt, '%Y.%m.%d %H:%i:%s') as create_dt
+		FROM 
+		    buddies_M m
+		WHERE 
+		    m.deleted_yn = 'N' 
+		    AND m.buddy_id = #{buddyId}
+	</select>
+
+	<update id="updateState">
+		update buddies_M
+           set level_number = #{levelNumber}
+             , hunger = GREATEST(0, LEAST(100, #{hunger}))
+             , fatigue = GREATEST(0, LEAST(100, #{fatigue}))
+             , happiness = GREATEST(0, LEAST(100, #{happiness}))
+             , update_dt = now()
+         where buddy_id = #{buddyId} 
+           AND deleted_yn = 'N'
+	</update>
+    
+    <delete id="deleteBuddy">
+        update buddies_M
+           set deleted_yn = 'Y' 
+             , update_dt = now()
+         where buddy_id = #{buddyId}  
+           and deleted_yn = 'N'
+    </delete>
+    
+    <select id="selectBuddyFileList" parameterType="int" resultType="com.buddy.dto.BuddyFileDto">
+        select image_id, image_url, buddy_id, original_file_name, format(round(file_size/1024), 0) as file_size, stored_file_path
+          from buddies_F
+         where buddy_id = #{buddyId}
+    </select>
+    
+    <select id="selectBuddyFileInfo" parameterType="map" resultType="com.buddy.dto.BuddyFileDto">
+        select image_id, image_url, original_file_name, stored_file_path, file_size
+          from buddies_F
+         where image_id = #{imageId}
+           and buddy_id = #{buddyId}
+    </select>
+</mapper>

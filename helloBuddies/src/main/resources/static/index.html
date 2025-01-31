@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello Buddies</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Hello Buddies</h1>
+
+        <!-- 이미지와 시작 버튼 -->
+        <div class="image-container">
+            <img src="/images/default-image.jpg" alt="Buddies-image" class="img-fluid" onclick="window.location.href='/buddy/about.do';">
+        </div>
+
+        <div class="btn-group text-center mt-4">
+            <a href="/buddy/openBuddyList.do" class="btn btn-info">Let's Play !</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="/js/common/windowOnLoad.js"></script>
+</body>
+</html>
