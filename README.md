@@ -1,4 +1,4 @@
-# Hello Buddies 프로젝트
+# Hello Buddies
 
 이 프로젝트는 다마고치(Tamagotchi) 스타일의 **Hello Buddies** 웹 애플리케이션입니다.<br>
 플레이어는 **Hello Buddies** 캐릭터를 키우고, 관리하며, 다양한 상호작용을 할 수 있습니다.<br>
