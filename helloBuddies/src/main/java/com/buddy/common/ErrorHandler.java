@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ErrorHandler {
     @ExceptionHandler(Exception.class)
     public ModelAndView defaultExceptionHandler(HttpServletRequest request, Exception exception) {
-        ModelAndView mv = new ModelAndView("/error/default");
+        ModelAndView mv = new ModelAndView("error/default");
         mv.addObject("request", request);
         mv.addObject("message", exception.getMessage());
         mv.addObject("stackTrace", exception.getStackTrace());
