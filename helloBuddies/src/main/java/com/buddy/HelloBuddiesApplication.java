@@ -10,7 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootApplication
-@EnableScheduling  // 스케줄링 활성화
+@EnableScheduling
 @EnableAutoConfiguration(exclude = { ErrorMvcAutoConfiguration.class })
 public class HelloBuddiesApplication {
 
