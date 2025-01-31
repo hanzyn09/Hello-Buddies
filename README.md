@@ -2,7 +2,7 @@
 
 이 프로젝트는 다마고치(Tamagotchi) 스타일의 **Hello Buddies** 웹 애플리케이션입니다.<br>
 플레이어는 **Hello Buddies** 캐릭터를 키우고, 관리하며, 다양한 상호작용을 할 수 있습니다.<br>
-캐릭터는 배고픔, 피로, 행복도를 관리할 수 있으며, 다양한 이미지 파일을 업로드할 수 있습니다.
+캐릭터는 배고픔, 피로도, 행복도를 관리할 수 있으며, 다양한 이미지 파일을 업로드할 수 있습니다.
 
 ## 기술 스택
 
@@ -13,7 +13,7 @@
 - **HikariCP**: 데이터베이스 연결 풀
 
 ## 기능
-- 세부 기능은 [**Hello Buddies WIKI**](https://github.com/hanzyn09/hello-buddies/wiki) 링크에서 확인할 수 있습니다.
+- 세부 기능 및 플레잉 화면은 [**Hello Buddies WIKI**](https://github.com/hanzyn09/hello-buddies/wiki) 링크에서 확인할 수 있습니다.
 
 ## 설치 및 실행 방법
 
