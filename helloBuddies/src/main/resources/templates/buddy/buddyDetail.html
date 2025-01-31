@@ -55,8 +55,8 @@
 						<td title="Level" style="text-align: right;"><strong><i
 								class="fas fa-star icon"></i>Level</strong></td>
 						<td style="text-align: center;"><span id="levelNumber"
-							title="최고의 상태가 되면 진화합니다."
-							th:text="'Lv. ' + ${buddy.levelNumber}"> </span></td>
+							title="최고의 상태가 되면 진화합니다." th:text="'Lv. ' + ${buddy.levelNumber}">
+						</span></td>
 					</tr>
 					<tr>
 						<td title="Hunger(은)는 0%가 최고의 상태입니다." style="text-align: right;"><strong>
@@ -98,9 +98,8 @@
 
 		<!-- 상태 변경 버튼들 -->
 		<form id="frm" method="POST">
-			<input type="hidden" name="buddyId"
-				th:value="${buddy.buddyId}" /> <input type="hidden"
-				name="state" id="state">
+			<input type="hidden" name="buddyId" th:value="${buddy.buddyId}" /> <input
+				type="hidden" name="state" id="state">
 			<!-- state 값이 전달되도록 hidden 필드 추가 -->
 
 			<div class="btn-group mb-3" role="group" style="width: 100%;">
@@ -121,6 +120,14 @@
 					title="입양 보내기">Give up for Adoption</button>
 			</div>
 		</form>
+	</div>
+
+	<div
+		style="display: flex; justify-content: center; align-items: center; margin-bottom: 20px;">
+		<a href="https://link.coupang.com/a/cclKcz" target="_blank"
+			referrerpolicy="unsafe-url"><img
+			src="https://ads-partners.coupang.com/banners/835095?subId=&traceId=V0-301-8be2627c04ed5569-I835095&w=728&h=90"
+			alt=""></a>
 	</div>
 
 	<!-- 하단에 고정된 뒤로 가기 버튼 -->
