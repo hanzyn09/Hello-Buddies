@@ -36,10 +36,10 @@ public class BuddyController {
 	// 게임 설명 화면
 	@GetMapping("about.do")
 	public String about() {
-		return "buddy/about"; // 다마고치 게임 설명 페이지
+		return "buddy/about"; // 버디 게임 설명 페이지
 	}
 
-	// 다마고치 목록 보기
+	// 버디 목록 보기
 	@GetMapping("openBuddyList.do")
 	public ModelAndView openBuddyList() throws Exception {
 		ModelAndView mv = new ModelAndView("buddy/buddyList");
@@ -48,29 +48,29 @@ public class BuddyController {
 		return mv;
 	}
 
-	// 다마고치 목록 상태 자동 업데이트
+	// 버디 목록 상태 자동 업데이트
 	@GetMapping("fetchBuddy.do")
 	@ResponseBody // JSON 형태로 응답을 반환
 	public List<BuddyDto> fetchBuddy() {
 		List<BuddyDto> list = BuddyService.selectBuddyList();
 
-		// 서버에서 받은 타마고치 상태를 JSON으로 반환
+		// 서버에서 받은 버디 상태를 JSON으로 반환
 		return list;
 	}
 
-	// 새로운 다마고치 등록 화면
+	// 새로운 버디 등록 화면
 	@GetMapping("createBuddy.do")
 	public String createBuddyForm() {
-		return "buddy/createBuddy"; // 새로운 다마고치 등록 폼 페이지
+		return "buddy/createBuddy"; // 새로운 버디 등록 폼 페이지
 	}
 
-	// 다마고치 등록 처리
+	// 버디 등록 처리
 	@PostMapping("createBuddy.do")
 	public String createBuddy(@RequestParam("name") String name, MultipartHttpServletRequest request,
 			RedirectAttributes redirectAttributes) throws Exception {
 		String message = BuddyService.createBuddy(name, request);
 		redirectAttributes.addFlashAttribute("alertMessage", message);
-		return "redirect:openBuddyList.do"; // 다마고치 목록 페이지로 리다이렉트
+		return "redirect:openBuddyList.do"; // 버디 목록 페이지로 리다이렉트
 	}
 
 	// 상세 조회 요청을 처리하는 메서드
@@ -83,22 +83,22 @@ public class BuddyController {
 		return mv;
 	}
 
-	// 다마고치 상세페이지 상태 자동 업데이트
+	// 버디 상세페이지 상태 자동 업데이트
 	@GetMapping("fetchBuddyDetail.do")
 	@ResponseBody // JSON 형태로 응답을 반환
 	public BuddyDto fetchBuddyDetail(@RequestParam("buddyId") int buddyId) {
 		BuddyDto buddyDto = BuddyService.selectBuddyDetail(buddyId);
 
-		// 서버에서 받은 타마고치 상태를 JSON으로 반환
+		// 서버에서 받은 버디 상태를 JSON으로 반환
 		return buddyDto;
 	}
 
-	// 다마고치의 상태 변경을 처리하는 메서드
+	// 버디의 상태 변경을 처리하는 메서드
 	@PostMapping("updateState.do")
 	public String updateState(@RequestParam("buddyId") int buddyId, @RequestParam("state") String state,
 			RedirectAttributes redirectAttributes) {
 		try {
-			// buddyId가 유효한지 체크하는 로직 추가 가능 (예: 존재하는 타마고치인지 확인)
+			// buddyId가 유효한지 체크하는 로직 추가 가능 (예: 존재하는 버디인지 확인)
 			if (buddyId <= 0) {
 				throw new IllegalArgumentException("Invalid buddyId: " + buddyId);
 			}
@@ -118,7 +118,7 @@ public class BuddyController {
 			case "delete":
 				message = BuddyService.deleteBuddy(buddyId);
 				redirectAttributes.addFlashAttribute("alertMessage", message);
-				return "redirect:openBuddyList.do"; // 다마고치 목록 페이지로 리다이렉트
+				return "redirect:openBuddyList.do"; // 버디 목록 페이지로 리다이렉트
 			default:
 				throw new IllegalArgumentException("Invalid state: " + state); // 잘못된 상태일 경우 예외 던짐
 			}
@@ -181,6 +181,6 @@ public class BuddyController {
 		// 리다이렉트할 때 알림 메시지 전달
 		redirectAttributes.addFlashAttribute("alertMessage", message);
 
-		return "redirect:openBuddyList.do"; // 다마고치 목록 페이지로 리다이렉트
+		return "redirect:openBuddyList.do"; // 버디 목록 페이지로 리다이렉트
 	}
 }
