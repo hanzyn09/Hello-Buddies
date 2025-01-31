@@ -95,7 +95,7 @@ JAR 파일을 다운로드한 후, 설치 위치로 이동하여 아래 명령�
 ```bash
 java -jar helloBuddies-0.0.1-SNAPSHOT.jar
 ```
-애플리케이션이 성공적으로 실행되면, 기본적으로 http://localhost:8080 에서 접속하여 애플리케이션을 사용할 수 있습니다.
+애플리케이션이 성공적으로 실행되면, 기본적으로 [**http://localhost:8080**](http://localhost:8080) 에서 접속하여 애플리케이션을 사용할 수 있습니다.
 
 ### 5. 웹 애플리케이션 사용
 웹 브라우저에서 `http://localhost:8080`에 접속하여 **Hello Buddies** 애플리케이션을 사용할 수 있습니다.<br>
