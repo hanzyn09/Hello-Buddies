@@ -1,0 +1,244 @@
+/* 기본 색상 설정 */
+:root {
+	/* 주요 색상 */
+	--primary-color: #7ed957; /* 메인 초록색 (주요 강조 색상) */
+	--secondary-color: #5e3a8c; /* 보라색 계열 (버튼, 텍스트 강조) */
+	--tertiary-color: #f8f9fa; /* 배경색 (밝은 회색) */
+	/* 버튼 호버 색상 */
+	--button-hover-color: #66d047; /* 버튼 호버 시 색상 (더 밝은 초록색) */
+	/* 상태 색상 */
+	--active-color: green; /* 활성 상태 색상 */
+	--inactive-color: red; /* 비활성 상태 색상 */
+	/* 버튼 색상 */
+	--primary-btn-bg: #9b59b6; /* 주요 버튼 배경색 (보라색) */
+	--primary-btn-hover-bg: #8e44ad; /* 주요 버튼 호버 색상 (더 진한 보라색) */
+	--secondary-btn-bg: #FFE942; /* 보조 버튼 배경색 (노란색) */
+	--secondary-btn-hover-bg: #D8C217; /* 보조 버튼 호버 색상 (더 밝은 노란색) */
+	--back-btn-bg: #FFE942; /* 뒤로가기 버튼 배경색 (노란색) */
+	--back-btn-hover-bg: #D8C217; /* 뒤로가기 버튼 호버 색상 (더 밝은 노란색) */
+	--day-btn-bg: #6a4c9c; /* 하루 건너 뛰기 버튼 배경색 (진한 보라색) */
+	--day-btn-hover-bg: #5c3a73; /* 하루 건너 뛰기 버튼 호버 색상 (더 진한 보라색) */
+}
+
+/* 기본 스타일 */
+body {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	background-color: var(--tertiary-color);
+	height: 100vh;
+	color: #333; /* 텍스트 색상 대비를 높임 */
+}
+
+.container {
+	width: 80%;
+	margin: 50px auto;
+	padding: 40px;
+	background-color: #fff;
+	border-radius: 15px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+	text-align: center;
+	font-size: 40px;
+	color: var(--secondary-color); /* 보라색 계열 */
+	margin-bottom: 30px;
+	cursor: pointer;
+}
+
+/* 테이블 스타일 */
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 20px 0;
+	border-radius: 10px;
+	overflow: hidden;
+	table-layout: auto;
+	text-align: center;
+}
+
+th, td {
+	padding: 12px;
+	text-align: center;
+	font-size: 18px;
+}
+
+th {
+	background-color: #f3e4f7;
+	font-weight: bold;
+	color: var(--secondary-color);
+	cursor: pointer;
+	border-bottom: 2px solid #ddd;
+}
+
+th:hover {
+	background-color: #e0c7e4;
+}
+
+td {
+	background-color: #faf1f9;
+	border-bottom: 1px solid #ddd;
+}
+
+.buddyTableBody {
+	table-layout: auto;
+}
+/* 상태 표시 */
+.status {
+	font-weight: bold;
+	border-radius: 5px;
+	padding: 5px 10px;
+	color: white;
+	position: relative;
+	cursor: pointer;
+}
+
+.status.active {
+	color: var(--active-color); /* 활성 상태: 초록색 */
+}
+
+.status.inactive {
+	color: var(--inactive-color); /* 비활성 상태: 빨간색 */
+}
+
+/* 툴팁 */
+.status-tooltip {
+	visibility: hidden;
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.75);
+	color: #fff;
+	padding: 5px;
+	border-radius: 5px;
+	font-size: 14px;
+	left: 50%;
+	transform: translateX(-50%);
+	white-space: normal;
+	z-index: 1000;
+}
+
+.status:hover .status-tooltip {
+	visibility: visible;
+}
+
+/* 검색 입력창 */
+.search-container {
+	margin-bottom: 20px;
+	text-align: center;
+}
+
+.search-input {
+	width: 60%;
+	padding: 12px;
+	font-size: 16px;
+	border-radius: 30px;
+	border: 2px solid #ddd;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-input:focus {
+	outline: none;
+	border-color: var(--secondary-color);
+	box-shadow: 0 0 5px rgba(94, 58, 140, 0.3);
+}
+
+/* 버튼 스타일 */
+.btn {
+	padding: 10px 20px;
+	border-radius: 50px;
+	color: white;
+	font-size: 16px;
+	text-decoration: none;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+	border: none;
+	transition: background-color 0.3s, opacity 0.3s; /* 애니메이션 추가 */
+	margin: 10px;
+}
+
+.btn:hover {
+	opacity: 0.9;
+}
+
+/* 주요 버튼 스타일 */
+.btn-primary {
+	background-color: var(--primary-btn-bg); /* 주요 버튼 배경색 */
+	color: white;
+}
+
+.btn-primary:hover {
+	background-color: var(--primary-btn-hover-bg); /* 주요 버튼 호버 색상 */
+	color: black;
+}
+
+/* 보조 버튼 스타일 */
+.btn-secondary {
+	background-color: var(--secondary-btn-bg); /* 보조 버튼 배경색 */
+	color: var(--secondary-color); /* 보라색 계열 */
+}
+
+.btn-secondary:hover {
+	background-color: var(--secondary-btn-hover-bg); /* 보조 버튼 호버 색상 */
+	color: white;
+}
+
+/* 뒤로가기 버튼 */
+.btn-back {
+	display: inline-block;
+	border-radius: 50px;
+	background-color: var(--back-btn-bg); /* 뒤로가기 버튼 배경색 */
+	color: var(--secondary-color);
+	font-size: 18px;
+	text-align: center;
+	text-decoration: none;
+	padding: 10px 20px;
+	transition: background-color 0.3s ease;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-back:hover {
+	background-color: var(--back-btn-hover-bg); /* 뒤로가기 버튼 호버 색상 */
+	color: white;
+	text-decoration: none;
+}
+
+/* 버튼 감싸는 div */
+.btn-wrapper {
+	display: flex;
+	justify-content: center;
+	margin-top: 10px;
+}
+
+/* 기타 텍스트 스타일 */
+.responsibility-text {
+	text-align: center;
+	font-size: 16px;
+	color: var(--secondary-color);
+	margin: 10px 0;
+	letter-spacing: 1px;
+	cursor: pointer;
+}
+
+.buddy-count {
+	font-weight: bold;
+	font-size: 23px;
+	color: var(--primary-color);
+}
+
+/* 하루 건너 뛰기 버튼 */
+.btn-day {
+	background-color: var(--day-btn-bg); /* 하루 건너 뛰기 버튼 배경색 */
+	color: white;
+	padding: 10px 20px;
+	border-radius: 50px;
+	font-size: 16px;
+	text-decoration: none;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-day:hover {
+	background-color: var(--day-btn-hover-bg); /* 하루 건너 뛰기 버튼 호버 색상 */
+}
+
+@media ( max-width : 768px) {
+	.search-input {
+		width: 80%; /* 작은 화면에서는 더 넓게 */
+	}
+}

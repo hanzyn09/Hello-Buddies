@@ -1,0 +1,178 @@
+/* 기본 body 스타일 */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    height: 100vh;
+	color: #333; /* 텍스트 색상 대비를 높임 */
+}
+
+/* 전체 컨테이너 스타일 */
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 40px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* 이미지 마우스 오버 효과 */
+.image-container img:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+}
+
+/* 제목 스타일 */
+h3 {
+    text-align: center;
+    color: #5e3a8c;
+    margin-bottom: 20px;
+}
+
+/* 공통 프로필 이미지 스타일 */
+.profile-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #ddd;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* 타마고치 이름 스타일 */
+.buddy-name {
+    font-size: 28px;
+    font-weight: bold;
+    color: #5e3a8c;
+    margin-top: 10px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* 타마고치 상태 스타일 */
+.buddy-status {
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.buddy-status.happy {
+    color: #7ed957; /* 행복한 상태일 때 초록색 */
+}
+
+.buddy-status.sad {
+    color: #e74c3c; /* 슬픈 상태일 때 빨간색 */
+}
+
+/* 공통 버튼 스타일 */
+.btn {
+    padding: 10px 20px;
+    border-radius: 50px;
+    color: white;
+    font-size: 16px;
+    text-decoration: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border: none;
+    transition: background-color 0.3s, opacity 0.3s; /* 애니메이션 추가 */
+}
+
+/* 버튼 호버 효과 */
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* 각 버튼 색상 설정 */
+.btn-hunger {
+    background-color: #C58CDC;
+}
+
+.btn-hunger:hover {
+    background-color: #A274B6;
+}
+
+.btn-sleep {
+    background-color: #9b59b6;
+}
+
+.btn-sleep:hover {
+    background-color: #8e44ad;
+    color: black;
+}
+
+.btn-play {
+    background-color: #6a4c9c;
+}
+
+.btn-play:hover {
+    background-color: #5c3a73;
+    color: black;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+}
+
+.btn-back {
+    background-color: #FFE942; /* 밝은 노란색 */
+    color: #6a4c9c;
+    font-size: 18px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    align-self: center;
+}
+
+.btn-back:hover {
+    background-color: #D8C217;
+    color: white;
+}
+
+/* 버튼 그룹 스타일 */
+.btn-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+/* 테이블 셀 중앙 정렬 */
+.table td {
+    vertical-align: middle;
+}
+
+/* 프로필 섹션 스타일 */
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+/* 테이블 섹션 스타일 */
+.table-section {
+    margin-bottom: 10px;
+}
+
+/* 버튼 그룹 스타일 */
+.btn-group {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+/* 알림 메시지 스타일 */
+.alert-message {
+    display: none;
+    color: red;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+}
+
+/* 아이콘과 텍스트 사이 간격 */
+.icon {
+    margin-right: 8px;
+}
